@@ -143,3 +143,18 @@ Your `LIN_301` repo is public, so instead of uploading a file to Canvas, you'll 
 | Criteria | Points |
 |-----------------------------------------|:-----------------------------:|
 | File named correctly; commands and answers clearly organized by part; reflection included; GitHub link points to the `hw1` folder | 5 |
+
+### TRAINOR - Counting and searching
+wc holmes.txt: 12,310 lines, 107,558 words, 607,606 characters
+grep -E "Watson" holmes.txt | wc -l: 81 lines contain "Watson"
+grep -E "Holmes" holmes.txt | wc -l: 460 lines contain "Holmes"; Holmes appears on more lines than Watson.
+
+### TRAINOR - Regex challenges
+grep -Ec "\<Holmes|Watson" holmes.txt: 533 words begin with "Holmes" or "Watson"
+grep -Eo "\<[A-Za-z]{5}\>" holmes.txt: 6637 five letter words
+grep -Ec "\?$" holmes.txt: 18 lines end with a question mark
+grep -Ec "([a-zA-Z])\1" holmes.txt: 6337 instances of a letter repeated twice in a row
+grep -Ec "(He|She| he | she )" holmes.txt: 1597 instances of "He", "She", " he ", or " she " as whole words
+
+### TRAINOR - Reflection
+The easiest part was the counting and searching portion since I feel like I have a good grasp on using wc and simple grep commands. The hardest part was writing the script file since I didn't understand how to use VSCode's built-in text editor. I didn't realize I had to hit ctrl+s to save the script before running it with source, so that caused some minor frustration. I think it would be interesting to use RegEx commands to search the LAP database. For example, in referring to the small bug that glows yellow during summer nights, which occurs more often: "firefly" or "lightning bug"?
