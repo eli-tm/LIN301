@@ -1,0 +1,128 @@
+---
+title: "HW 3 — From Variables to Sets"
+subtitle: "LIN 301: Computation for Linguists"
+author: "Eli Trainor"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-tools: true
+jupyter: python3
+fontsize: 12pt
+---
+## Part 1 — Numbers, Strings, and Booleans
+### Numbers
+```{python}
+# Step 1
+books = 24
+war_years = 10
+journey_years = 10
+# Step 2
+total_years_away = war_years + journey_years
+print(total_years_away)    #20
+# Step 3
+books_per_week = books // 7
+leftover_books = books % 7
+print(books_per_week,  leftover_books)   #3 books per week with 3 books left over
+# Step 4
+print(type(books), type(total_years_away), type(books_per_week))   #<class 'int'> <class 'int'> <class 'int'> as expected
+```
+### Strings
+```{python}
+# Step 5
+hero = "Odysseus"
+epithet = "that one guy in that one movie"
+# Step 6
+print(hero+epithet)   #Odysseusthat one guy in that one movie
+print(hero, epithet)   #Odysseus that one guy in that one movie; The difference here is the space between "Odysseus" and "that"
+# Step 7
+homer_quote = '"the man of twists and turns."'
+print(homer_quote)   #"the man of twists and turns."
+```
+### Booleans
+```{python}
+# Step 8
+years_match = war_years == journey_years
+print(years_match)   #True
+# Step 9
+book_number = 24
+# Step 10
+is_first_book = book_number == 1
+is_last_book = book_number == 24
+# Step 11
+is_bookend = (is_first_book == True) or (is_last_book == True)
+print(book_number, is_bookend)   #24 True
+```
+### Book Profile
+```{python}
+# Step 12
+guess_book_number = 1
+my_guess = "The beginning of the hero's journey is introduced."
+is_double_digit = guess_book_number >= 10
+# Step 13
+print(guess_book_number, my_guess, is_double_digit)   #1 The beginning of the hero's journey is introduced. False
+print(type(guess_book_number), type(my_guess), type(is_double_digit))   #<class 'int'> <class 'str'> <class 'bool'>
+```
+
+------------------------------------------------------------------------
+
+## Part 2 — Lists, Dictionaries, and Sets: Cataloguing the *Odyssey*
+### Lists
+```{python}
+ # *Set up
+with open("odyssey.txt", encoding="utf-8") as f:
+    text = f.read()
+    words = text.split()
+
+# Step 14
+print(len(words))   #132609
+# Step 15
+print(words[0:20])   #Looks like the intro to the ebook
+# Step #16
+print(words[1000:1020]) #['when', 'now', 'the', 'year', 'had', 'come', 'in', 'the', 'courses', 'of', 'the', 'seasons,', 'wherein', 'the', 'gods', 'had', 'ordained', 'that', 'he', 'should']
+```
+### Sets
+```{python}
+# Step 17
+unique_words = set(words)
+print(len(unique_words))   #14221
+# Step 18
+ttr = len(unique_words) / len(words)
+print(ttr)   #0.10724008174407469
+# Step 19
+    #The longer a text is, the more likely it is for words to repeat-- especially function words such as determiners, demonstratives, complementizers, prepositions, pronouns, etc. Odysseus is significantly longer than the first 20 words of Alice.
+```
+### Dictionaries
+```{python}
+# Step 20
+text.count("Odysseus")
+# Step 21
+position_odysseus = text.find("Odysseus")
+text[position_odysseus - 150 : position_odysseus + 150]
+text.count("Ulysses")
+position_ulysses = text.find("Ulysses")
+text[position_ulysses - 150 : position_ulysses + 150]
+# Step 22
+character_count = {
+"Ulysses": text.find("Ulysses"),
+"Penelope": text.find("Penelope"),
+"Telemachus": text.find("Telemachus"),
+"Minerva": text.find("Minerva")
+}
+# Step 23
+print(character_count)
+# Step 24
+character_list = list(character_count.items())
+print(character_list)
+character_freq = [2117, 11710, 11756, 19191]
+most_character = max(character_freq)
+most_char_index = character_freq.index(max(character_freq))
+print(character_list[most_char_index])   #('Minerva', 19191)
+# Step 25
+character_count["hero"] = text.find("hero")
+print(character_count)
+```
+## Part 3 — Reflection
+-   I knew that the longer the text is, the smaller the TTR would be, but it really surprised me to see just how small the Odyssy TTR calculated as with the whole text document!
+-   Given how long the poem is, and how many occurences of character names there are, I don't think getting rid of the Gutenberg license text wouold meaningfully change the TTR. It probably contains some unique words not in the rest of the poem, such as "Gutenberg" and "ebook", but I don't think it's likely to make a huge change in either the token or type counts if it was excluded.
+-   The dict structure felt the most efficient in the character-counting task because assigning the text.find index as the value did a lot of heavy lifting, and the printed result was easy to read. When doing the task on checking which character's name appeared the most, I decided to do so by converting the dict to a complex list, then grabbing the character count integers in their own list, finding the max number of the list, indexing that max number, and finding the corresponding character and count within the complex list. There is a chance my method was more complicated than it needede to be, but working with (multiple) lists felt more difficult that working with one dictionary.
