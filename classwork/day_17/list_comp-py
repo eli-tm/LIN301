@@ -1,0 +1,46 @@
+words = ["phoneme", "phrase", "morpheme", "reconstruction", "index"]
+
+shouting = [term.strip().upper() for term in words]
+lengths = [len(term) for term in words]
+firsts = [term[0] for term in words]
+
+print(shouting, lengths, firsts)
+
+print("==========")
+
+
+try:
+    with open("../../data/gutenberg/mansfield_park.txt", "r", encoding="utf-8") as f:
+        book_lines = f.readlines()
+except FileNotFoundError:
+    print("Couldn't find that file — check the filename and location.")
+
+mansfield_cleaned = [line.strip().lower() for line in book_lines]
+
+print(book_lines[100:105])
+print("--------")
+print(mansfield_cleaned[100:105])
+
+print("====Activity====")
+mansfield_nonempty = [line for line in mansfield_cleaned if line != ' ']
+print(len(mansfield_cleaned), len(mansfield_nonempty))   #error in code above
+
+items = ["color", "flavour", "theater", "center", "analyze", "organize", "favorite", "neighbor", "honor", "catalog", "honour", "flavor", "analyse", "flavor", "traveler"]
+r_end_count = 0
+for item in items:
+    if item[-1] == "r":
+        r_end_count += 1
+        print (item, r_end_count)
+
+print("=========")
+items = ["color", "flavour", "theater", "center", "analyze", "organize", "favorite", "neighbor", "honor", "catalog", "honour", "flavor", "analyse", "flavor", "traveler"]
+
+down_with_brits = []
+for word in items:
+    if word.endswith("our"):
+        word = word.replace("our", "or")
+    down_with_brits.append(word)
+    #elif word.endswith("yse"):
+       # word = word.replace("yse", "yze")
+
+print(down_with_brits)
