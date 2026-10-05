@@ -1,0 +1,36 @@
+---
+title: "Project Component 1"
+subtitle: "Dataset & Type of Analysis"
+author: "Eli Trainor"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-tools: true
+jupyter: python3
+fontsize: 12pt
+---
+
+## Dataset Description
+The Dataset I would like to use is from the work I have done on the Linguistic Atlas Project here at UK. I have made Google spreadsheets for all the transcriptions I have done, and those spreadsheets can be exported into .csv files. I will convert the exported file(s) to .csv with an online converter tool.
+
+## Rational
+I chose this dataset because it is something I have easy access to, have a lot of interest in, and am familiar with where to find certain data. This is my third year working on the atlas, and doing so has made me very interested in linguistic variation and dialectology. I also have weekly meetings with the director of LAP who might be able to assist me on any analyses. 
+
+## Type of Analysis
+I plan on doing frequency and vocabulary analysis, pattern matching, and some cross-linguistic analysis. I will be comparing words, entries, and (maybe) demographics. Depending on how large I can realistically make this project, I might analyze the demographics of the informants concerning the targetted responses, but this also depends on if I can access that information without it adding too much workload. 
+
+## Preliminary Questions
+    1. How often does the singular second person pronoun ("thee") appear in the Linguistic Atlas of Southern England? 
+    2. What is the ratio of "thee" and singular "you" within the data?
+    3. What are the major differences between the informants who use singular "thee" versus the informants who use the singular "you"? Is it age? Education?
+
+## A Look at the Data
+Below is an example of the Google sheets > .csv > .txt conversion.
+```
+LASE45 plank                     NR                 wheelbarrow               whetstone                  grinstone                    rag                  grease               slipper                  launch
+45 cont'd MISSING
+                    see          coal                                         rubber,                                                 car
+LASE46 seesaw       pronunciationscuttle            wheelbarrow               whetstone                  grinstone                    grease n.            greasy s.            oil                      launchin'
+                                 coal                                                                                                                      greasy               oily
+```

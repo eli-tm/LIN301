@@ -44,3 +44,5 @@ for word in items:
        # word = word.replace("yse", "yze")
 
 print(down_with_brits)
+
+import matplotlib

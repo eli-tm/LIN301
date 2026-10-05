@@ -1,0 +1,57 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Project Component 1\"\n",
+        "subtitle: \"Dataset & Type of Analysis\"\n",
+        "author: \"Eli Trainor\"\n",
+        "format:\n",
+        "  html:\n",
+        "    toc: true\n",
+        "    toc-depth: 2\n",
+        "    code-tools: true\n",
+        "jupyter: python3\n",
+        "fontsize: 12pt\n",
+        "---\n",
+        "\n",
+        "## Dataset Description\n",
+        "The Dataset I would like to use is from the work I have done on the Linguistic Atlas Project here at UK. I have made Google spreadsheets for all the transcriptions I have done, and those spreadsheets can be exported into .csv files. I will convert the exported file(s) to .csv with an online converter tool.\n",
+        "\n",
+        "## Rational\n",
+        "I chose this dataset because it is something I have easy access to, have a lot of interest in, and am familiar with where to find certain data. This is my third year working on the atlas, and doing so has made me very interested in linguistic variation and dialectology. I also have weekly meetings with the director of LAP who might be able to assist me on any analyses. \n",
+        "\n",
+        "## Type of Analysis\n",
+        "I plan on doing frequency and vocabulary analysis, pattern matching, and some cross-linguistic analysis. I will be comparing words, entries, and (maybe) demographics. Depending on how large I can realistically make this project, I might analyze the demographics of the informants concerning the targetted responses, but this also depends on if I can access that information without it adding too much workload. \n",
+        "\n",
+        "## Preliminary Questions\n",
+        "    1. How often does the singular second person pronoun (\"thee\") appear in the Linguistic Atlas of Southern England? \n",
+        "    2. What is the ratio of \"thee\" and singular \"you\" within the data?\n",
+        "    3. What are the major differences between the informants who use singular \"thee\" versus the informants who use the singular \"you\"? Is it age? Education?\n",
+        "\n",
+        "## A Look at the Data\n",
+        "Below is an example of the Google sheets > .csv > .txt conversion.\n",
+        "```\n",
+        "LASE45 plank                     NR                 wheelbarrow               whetstone                  grinstone                    rag                  grease               slipper                  launch\n",
+        "45 cont'd MISSING\n",
+        "                    see          coal                                         rubber,                                                 car\n",
+        "LASE46 seesaw       pronunciationscuttle            wheelbarrow               whetstone                  grinstone                    grease n.            greasy s.            oil                      launchin'\n",
+        "                                 coal                                                                                                                      greasy               oily\n",
+        "```"
+      ],
+      "id": "d3d3bcfa"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "c:\\Users\\eli\\Documents\\git_repos\\comp_for_ling\\.venv\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
