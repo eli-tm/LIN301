@@ -93,23 +93,23 @@ import matplotlib.pyplot as plt
 king_freqs = [pair[1] for pair in Counter(king_words).most_common()]
 king_ranks = range(1, len(king_freqs) + 1)    # 1, 2, 3, ... up to the number of words
 
-plt.plot(king_ranks, king_freqs)
-plt.title("Rank vs. Frequency")
-plt.xlabel("Rank")
-plt.ylabel("Frequency")
-plt.xscale("log")
-plt.yscale("log")
+#plt.plot(king_ranks, king_freqs)
+#plt.title("Rank vs. Frequency")
+#plt.xlabel("Rank")
+#plt.ylabel("Frequency")
+#plt.xscale("log")
+#plt.yscale("log")
 #plt.show()
 
 oz_freqs = [pair[1] for pair in Counter(oz_words).most_common()]
 oz_ranks = range(1, len(oz_freqs) + 1)    # 1, 2, 3, ... up to the number of words
 
-plt.plot(oz_ranks, oz_freqs)
-plt.title("Rank vs. Frequency")
-plt.xlabel("Rank")
-plt.ylabel("Frequency")
-plt.xscale("log")
-plt.yscale("log")
+#plt.plot(oz_ranks, oz_freqs)
+#plt.title("Rank vs. Frequency")
+#plt.xlabel("Rank")
+#plt.ylabel("Frequency")
+#plt.xscale("log")
+#plt.yscale("log")
 #plt.show()
 
 print("====LY====")
@@ -193,4 +193,91 @@ print("king -ing words:", king_ing)
 print("oz -ing words:", oz_ing)
 
 print("====Dialogue====")
-#get rid of empty lines in king_lines
+king_cleanlines = [line.strip().lower() for line in king_lines]     #strip line breaks and empty spaces and make all lowercase
+king_nonempty = [line for line in king_cleanlines if line != ""]    #gets rid of empty lines
+
+dialoguemarker = "“"
+
+king_dialogue = [line for line in king_nonempty if dialoguemarker in line]
+print("The King in Yellow has", len(king_dialogue), "lines of dialogue.")
+king_dialoguepercentage = len(king_dialogue) / len(king_lines)
+print("The King in Yellow dialogue percentage:", king_dialoguepercentage)
+
+
+oz_cleanlines = [line.strip().lower() for line in oz_lines]         #repeat for second novel
+oz_nonempty = [line for line in oz_cleanlines if line != ""]    
+
+oz_dialogue = [line for line in oz_nonempty if dialoguemarker in line]
+print("The Wizard of Oz has", len(oz_dialogue), "lines of dialogue.")
+oz_dialoguepercentage = len(oz_dialogue) / len(oz_lines)
+print("The Wizard of Oz percentage:", oz_dialoguepercentage)
+
+print("====CommonWords====")
+stopwords = ["the", "to", "and", "of", "a", "her", "i", "in", "was", "it",
+             "she", "he", "be", "that", "you", "not", "had", "as", "his", "for",
+             "with", "is", "have", "but", "at", "so", "all", "my", "been", "him",
+             "on", "by", "could", "would", "very", "no", "what", "which", "they",
+             "were", "there", "me", "an", "must", "this", "said", "from", "or",
+             "will", "any", "much", "than", "such", "their", "them", "if", "do",
+             "did", "one", "when", "your", "more", "are", "we", "who", "up",
+             "out", "down", "into", "s", "t", "am", "then"]
+
+king_counts = {}                #create empty dictionary
+for w in king_words:            #for each word in king_words
+    if w in king_counts:        #if the word is in the dictionary
+        king_counts[w] += 1     #increase the value by 1
+    else:                       #if the word is not in the dictionary
+        king_counts[w] = 1      #do not increase the value 
+
+king_counter = Counter(king_words)          #counts all the word appearances in king_words
+king_top10 = king_counter.most_common(10)   #creates a variable of the 10 highest valued items
+print(king_top10)
+
+king_top_words = [pair[0] for pair in king_top10]       #pairs words and frequencies into a dictionary
+king_top_freqs = [pair[1] for pair in king_top10] 
+
+print(king_top_words)
+print(king_top_freqs)
+
+king_content_words = [w for w in king_words if w not in stopwords]      #adds words to variable if the words are not within the list stopwords
+
+king_content_top10 = Counter(king_content_words).most_common(10)        #counts all the word appearances in king_content_words
+king_content_labels = [pair[0] for pair in king_content_top10]          #pairs words and frequencies into a dictionary
+king_content_freqs = [pair[1] for pair in king_content_top10]
+
+
+oz_counts = {}                  #repeat for second novel
+for w in oz_words:
+    if w in oz_counts:
+        oz_counts[w] += 1
+    else:
+        oz_counts[w] = 1
+
+oz_counter = Counter(oz_words)
+oz_top10 = oz_counter.most_common(10)
+print(oz_top10)
+
+oz_top_words = [pair[0] for pair in oz_top10] 
+oz_top_freqs = [pair[1] for pair in oz_top10] 
+
+print(oz_top_words)
+print(oz_top_freqs)
+
+oz_content_words = [w for w in oz_words if w not in stopwords]
+
+oz_content_top10 = Counter(oz_content_words).most_common(10)
+oz_content_labels = [pair[0] for pair in oz_content_top10]
+oz_content_freqs = [pair[1] for pair in oz_content_top10]
+
+print("The top 10 words in The King in Yellow are", king_content_labels, "with counts of", king_content_freqs)
+print("The top 10 words in The Wizard of Oz are", oz_content_labels, "with counts of", oz_content_freqs)
+
+print("====Plotting====")
+plt.bar(king_content_labels, king_content_freqs)
+plt.title("Top 10 Content Words in The King in Yellow")
+plt.xlabel("Word")
+plt.ylabel("Frequency")
+plt.xticks(rotation=45)
+plt.tight_layout()    # keeps the rotated labels from getting cut off
+#plt.savefig("king_content_top10.png")
+#plt.show()  
