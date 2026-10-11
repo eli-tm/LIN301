@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Dr.&nbsp;Andrew M. Byrd">
+
+<title>HW 4 — Detective Gutenberg: The Full Investigation</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="hw4_detective_gutenberg_files/libs/clipboard/clipboard.min.js"></script>
+<script src="hw4_detective_gutenberg_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="hw4_detective_gutenberg_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="hw4_detective_gutenberg_files/libs/quarto-html/popper.min.js"></script>
+<script src="hw4_detective_gutenberg_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="hw4_detective_gutenberg_files/libs/quarto-html/anchor.min.js"></script>
+<link href="hw4_detective_gutenberg_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="hw4_detective_gutenberg_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="hw4_detective_gutenberg_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="hw4_detective_gutenberg_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="hw4_detective_gutenberg_files/libs/bootstrap/bootstrap-caa6b8573ba3836a6eec38f0087f9260.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#part-1-setup-and-cleaning" id="toc-part-1-setup-and-cleaning" class="nav-link" data-scroll-target="#part-1-setup-and-cleaning">Part 1 — Setup and Cleaning</a></li>
+  <li><a href="#part-2-tokens-types-and-a-fair-comparison" id="toc-part-2-tokens-types-and-a-fair-comparison" class="nav-link" data-scroll-target="#part-2-tokens-types-and-a-fair-comparison">Part 2 — Tokens, Types, and a Fair Comparison</a></li>
+  <li><a href="#part-3-affixes-dialogue-and-common-words" id="toc-part-3-affixes-dialogue-and-common-words" class="nav-link" data-scroll-target="#part-3-affixes-dialogue-and-common-words">Part 3 — Affixes, Dialogue, and Common Words</a></li>
+  <li><a href="#part-4-visualize-it" id="toc-part-4-visualize-it" class="nav-link" data-scroll-target="#part-4-visualize-it">Part 4 — Visualize It</a></li>
+  <li><a href="#part-5-the-verdict" id="toc-part-5-the-verdict" class="nav-link" data-scroll-target="#part-5-the-verdict">Part 5 — The Verdict</a></li>
+  <li><a href="#part-6-reflection" id="toc-part-6-reflection" class="nav-link" data-scroll-target="#part-6-reflection">Part 6 — Reflection</a></li>
+  <li><a href="#quick-reference" id="toc-quick-reference" class="nav-link" data-scroll-target="#quick-reference">Quick Reference</a></li>
+  <li><a href="#submission" id="toc-submission" class="nav-link" data-scroll-target="#submission">Submission</a></li>
+  <li><a href="#grading-rubric-100-pts-total" id="toc-grading-rubric-100-pts-total" class="nav-link" data-scroll-target="#grading-rubric-100-pts-total">Grading Rubric (100 pts total)</a></li>
+  </ul>
+</nav>
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">HW 4 — Detective Gutenberg: The Full Investigation</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">LIN 301: Computation for Linguists</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Dr.&nbsp;Andrew M. Byrd </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>This homework is the Detective Gutenberg activity from October 7 and October 9, finished and polished into one submittable document. If you kept up with both activity days, most of the work here is already done in your <code>gut_detective.qmd</code> — this assignment asks you to bring it all together on your <strong>final</strong> two novels, make sure every step actually runs start to finish, and write up your verdict.</p>
+<p>Everything below has already been modeled in class — in the slides, in the activity, or in the sample solutions I walked through. There are no new techniques here. That means there’s no excuse for code that doesn’t run, and it also means the thing I’m actually grading is whether you can explain, in your own words, what your code is doing and why — because copying a working pattern is not the same as understanding it.</p>
+<p><strong>Pick your own two novels</strong>, by two different authors, from Project Gutenberg. (Don’t just turn in the class examples — <em>Alice in Wonderland</em> and <em>Mansfield Park</em> — as your submission; pick two of your own.) Everything you do should run on <em>your</em> books, not the ones from the slides.</p>
+<p>You will create <strong>one</strong> Quarto document named <code>hw4_detective_gutenberg_lastname_firstname.qmd</code>, living inside a folder called <code>hw4</code> in your <code>homework/</code> folder. As always, fence every chunk with <code>```{python}</code> (not plain <code>```python</code>), and make sure your document renders cleanly to HTML before you submit.</p>
+<p><strong>Explain-and-disclose requirement:</strong> under each part below, write a few sentences in your own words explaining what your code does — not what the output shows, but how the code gets there — and say whether and how you used any AI tool (ChatGPT, Copilot, autocomplete suggestions, anything) for that part. This isn’t a gotcha; using these tools well is a real skill, and I’d rather know how you’re using them than have you hide it. But since the exact code for this assignment is sitting in the lecture slides, an explanation of code you don’t actually understand is usually easy to spot.</p>
+<hr>
+</section>
+<section id="part-1-setup-and-cleaning" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-setup-and-cleaning">Part 1 — Setup and Cleaning</h2>
+<p><strong>Goal:</strong> download your two novels, strip off the Gutenberg header and footer from each, and end up with a clean list of lowercase words for each book.</p>
+<ul>
+<li>Download both novels (Plain Text UTF-8) into <code>../../data/gutenberg/</code> — or wherever your <code>hw4</code> folder expects them — with clear filenames.</li>
+<li>Read each one in with <code>.readlines()</code>, inside a <code>try</code>/<code>except</code> so a bad filename doesn’t crash the whole document.</li>
+<li>Use your <code>while</code> loops to chop the header off the front and the footer off the back of each book, the same way you did with <em>Alice</em>.</li>
+<li>Glue the lines back together, lowercase, and split into words with <code>re.split()</code>, removing any empty strings left behind.</li>
+</ul>
+<p><em>Explain what your cleaning code is doing, and disclose any AI use for this part.</em></p>
+<hr>
+</section>
+<section id="part-2-tokens-types-and-a-fair-comparison" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-tokens-types-and-a-fair-comparison">Part 2 — Tokens, Types, and a Fair Comparison</h2>
+<p><strong>Goal:</strong> compare the vocabulary richness of your two books, correctly.</p>
+<ul>
+<li>For each book, report the total word count (tokens), the number of unique words (types), and the type–token ratio.</li>
+<li>Compare the two raw TTRs — which book looks like it has the richer vocabulary?</li>
+<li>Now compute the TTR of just the first 10,000 words of each book, and compare again. Explain, in your own words, why this second comparison is the fairer one.</li>
+<li>Report the average word length for each book.</li>
+</ul>
+<p><em>Explain your code for this part, and disclose any AI use.</em></p>
+<hr>
+</section>
+<section id="part-3-affixes-dialogue-and-common-words" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-affixes-dialogue-and-common-words">Part 3 — Affixes, Dialogue, and Common Words</h2>
+<p><strong>Goal:</strong> find measurable differences between your two authors’ styles.</p>
+<ul>
+<li>Report each book’s rate of <strong>-ly</strong> words per 1,000 words, and look at the actual list — are they all adverbs, or does something else sneak in?</li>
+<li>Pick <strong>three more affixes</strong> of your own choosing and report the per-1,000-word rate of each, for both books.</li>
+<li>Using your header-free lines from Part 1, report what percentage of each book’s lines contain dialogue, however your book happens to mark it.</li>
+<li>Report each book’s <strong>10 most common content words</strong> (after removing stopwords), and say what they suggest about each book’s characters, setting, or themes.</li>
+</ul>
+<p><em>Explain your code for this part, and disclose any AI use.</em></p>
+<hr>
+</section>
+<section id="part-4-visualize-it" class="level2">
+<h2 class="anchored" data-anchor-id="part-4-visualize-it">Part 4 — Visualize It</h2>
+<p><strong>Goal:</strong> show your findings as charts.</p>
+<ul>
+<li>Make <strong>one bar chart</strong> comparing your two authors on a single measure of your choice from Part 3.</li>
+<li>Make <strong>one Zipf plot</strong> — rank vs.&nbsp;frequency, log scale on both axes — with <strong>both</strong> books on the same chart, each with its own label and a legend.</li>
+<li>Every chart needs a title, axis labels, and should be saved to a file with <code>plt.savefig()</code>.</li>
+</ul>
+<p><em>Explain your code for this part, and disclose any AI use.</em></p>
+<hr>
+</section>
+<section id="part-5-the-verdict" class="level2">
+<h2 class="anchored" data-anchor-id="part-5-the-verdict">Part 5 — The Verdict</h2>
+<p>Below your code, write a short paragraph:</p>
+<ul>
+<li>What makes each author’s style distinctive, based on what you measured?</li>
+<li>Which measure was the most revealing? Which was the least useful?</li>
+<li>If someone handed you an anonymous chapter, which single measure would you reach for first to guess the author, and why?</li>
+</ul>
+<hr>
+</section>
+<section id="part-6-reflection" class="level2">
+<h2 class="anchored" data-anchor-id="part-6-reflection">Part 6 — Reflection</h2>
+<p>A short (4–6 sentence) reflection:</p>
+<ul>
+<li>What was the biggest difference between running this activity in class on Day 1/2 and finishing it on your own for homework?</li>
+<li>Of everything you found, what’s the most interesting or surprising result?</li>
+<li>Overall, where did you lean most on an AI tool, if anywhere — and where did you deliberately not use one? Why?</li>
+</ul>
+<hr>
+</section>
+<section id="quick-reference" class="level2">
+<h2 class="anchored" data-anchor-id="quick-reference">Quick Reference</h2>
+<p>Here is a quick reference for the Python techniques you will need to use in this assignment. You can copy and paste these snippets into your own code, but make sure you understand what each one does before you do.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>What you need to do</th>
+<th>How</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Read a file line by line</td>
+<td><code>with open(path, encoding="utf-8") as f: lines = f.readlines()</code></td>
+</tr>
+<tr class="even">
+<td>Handle a bad filename without crashing</td>
+<td><code>try: ... except FileNotFoundError: ...</code></td>
+</tr>
+<tr class="odd">
+<td>Chop lines off the front while a condition holds</td>
+<td><code>while not lines[0].startswith("..."): lines = lines[1:]</code></td>
+</tr>
+<tr class="even">
+<td>Chop lines off the back while a condition holds</td>
+<td><code>while not lines[-1].startswith("..."): lines = lines[:-1]</code></td>
+</tr>
+<tr class="odd">
+<td>Glue a list of lines back into one string</td>
+<td><code>"".join(lines)</code></td>
+</tr>
+<tr class="even">
+<td>Split text into words, removing punctuation</td>
+<td><code>re.split(r"[\W]+", text.lower())</code>, then drop empty strings</td>
+</tr>
+<tr class="odd">
+<td>Count tokens / types / TTR</td>
+<td><code>len(words)</code>, <code>len(set(words))</code>, <code>len(set(words)) / len(words)</code></td>
+</tr>
+<tr class="even">
+<td>Slice the first N items</td>
+<td><code>words[:10000]</code></td>
+</tr>
+<tr class="odd">
+<td>Running total inside a loop</td>
+<td><code>total = 0</code> then <code>total += len(w)</code> for each <code>w</code></td>
+</tr>
+<tr class="even">
+<td>Turn a count into a rate per 1,000</td>
+<td><code>count / len(words) * 1000</code></td>
+</tr>
+<tr class="odd">
+<td>Check the start/end of a string</td>
+<td><code>word.startswith("un")</code>, <code>word.endswith("ly")</code></td>
+</tr>
+<tr class="even">
+<td>Build a filtered list in one line</td>
+<td><code>[w for w in words if condition(w)]</code></td>
+</tr>
+<tr class="odd">
+<td>Count and rank items</td>
+<td><code>Counter(words).most_common(n)</code></td>
+</tr>
+<tr class="even">
+<td>Bar chart</td>
+<td><code>plt.bar(labels, values)</code></td>
+</tr>
+<tr class="odd">
+<td>Line chart with a log–log scale</td>
+<td><code>plt.plot(ranks, freqs)</code> then <code>plt.xscale("log")</code>, <code>plt.yscale("log")</code></td>
+</tr>
+<tr class="even">
+<td>Multiple lines on one chart with a legend</td>
+<td><code>plt.plot(x, y, label="...")</code> for each, then <code>plt.legend()</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="submission" class="level2">
+<h2 class="anchored" data-anchor-id="submission">Submission</h2>
+<p>Your <code>LIN_301</code> repo is public, so instead of uploading a file to Canvas, you’ll submit a <strong>link</strong> straight to your <code>homework/hw4</code> folder on GitHub.</p>
+<ol type="1">
+<li><p><strong>Render your document.</strong> Make sure your <code>.qmd</code> renders cleanly to HTML.</p></li>
+<li><p><strong>Push everything.</strong> Stage, commit, and push your entire <code>homework/hw4</code> folder — your <code>.qmd</code>, the rendered <code>.html</code>, both novel <code>.txt</code> files, and any saved chart images — to your <code>LIN_301</code> GitHub repo.</p></li>
+<li><p><strong>Get the folder’s GitHub address.</strong> On github.com, navigate into your repo to <code>homework/hw4</code>, and copy the URL from your browser’s address bar. It’ll look like:</p>
+<pre><code>https://github.com/your-username/LIN_301/tree/main/homework/hw4</code></pre></li>
+<li><p><strong>Submit that link on Canvas</strong> — no file upload needed.</p></li>
+<li><p>Be sure to replace “lastname_firstname” with your actual last name and first name in your <code>.qmd</code> filename.</p></li>
+</ol>
+<hr>
+</section>
+<section id="grading-rubric-100-pts-total" class="level2">
+<h2 class="anchored" data-anchor-id="grading-rubric-100-pts-total">Grading Rubric (100 pts total)</h2>
+<section id="part-1-setup-and-cleaning-15-pts" class="level3">
+<h3 class="anchored" data-anchor-id="part-1-setup-and-cleaning-15-pts">Part 1 — Setup and Cleaning (15 pts)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 56%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th style="text-align: center;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Both novels downloaded, loaded, and correctly cleaned (headers/footers removed, lowercased, split, empties removed)</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="even">
+<td>Explanation of the code holds up and matches what it actually does</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="part-2-tokens-types-and-a-fair-comparison-20-pts" class="level3">
+<h3 class="anchored" data-anchor-id="part-2-tokens-types-and-a-fair-comparison-20-pts">Part 2 — Tokens, Types, and a Fair Comparison (20 pts)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 56%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th style="text-align: center;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tokens, types, TTR, 10,000-word TTR, and average word length all correctly computed for both books</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="even">
+<td>Correctly explains why the 10,000-word comparison is fairer than the raw one</td>
+<td style="text-align: center;">5</td>
+</tr>
+<tr class="odd">
+<td>Explanation of the code holds up</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="part-3-affixes-dialogue-and-common-words-20-pts" class="level3">
+<h3 class="anchored" data-anchor-id="part-3-affixes-dialogue-and-common-words-20-pts">Part 3 — Affixes, Dialogue, and Common Words (20 pts)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 56%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th style="text-align: center;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>-ly rate, three chosen affixes, dialogue percentage, and top-10 content words all correctly computed for both books</td>
+<td style="text-align: center;">12</td>
+</tr>
+<tr class="even">
+<td>Genuine engagement with what the results suggest about each author/book</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td>Explanation of the code holds up</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="part-4-visualize-it-15-pts" class="level3">
+<h3 class="anchored" data-anchor-id="part-4-visualize-it-15-pts">Part 4 — Visualize It (15 pts)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 56%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th style="text-align: center;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bar chart and dual-book Zipf plot both correct, labeled, and saved to file</td>
+<td style="text-align: center;">10</td>
+</tr>
+<tr class="even">
+<td>Explanation of the code holds up</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="part-5-the-verdict-10-pts" class="level3">
+<h3 class="anchored" data-anchor-id="part-5-the-verdict-10-pts">Part 5 — The Verdict (10 pts)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 56%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th style="text-align: center;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Specific, well-reasoned answers grounded in the student’s own results</td>
+<td style="text-align: center;">10</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="part-6-reflection-ai-disclosure-15-pts" class="level3">
+<h3 class="anchored" data-anchor-id="part-6-reflection-ai-disclosure-15-pts">Part 6 — Reflection &amp; AI Disclosure (15 pts)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 56%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th style="text-align: center;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Thoughtful, specific answers to the reflection prompts</td>
+<td style="text-align: center;">8</td>
+</tr>
+<tr class="even">
+<td>Honest, specific AI-use disclosure (including “I didn’t use one,” if true) at each point it was asked for</td>
+<td style="text-align: center;">7</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="presentation-reproducibility-5-pts" class="level3">
+<h3 class="anchored" data-anchor-id="presentation-reproducibility-5-pts">Presentation &amp; Reproducibility (5 pts)</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 56%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th style="text-align: center;">Points</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>File named correctly; document renders without errors; code and answers clearly organized by part; GitHub link points to the <code>hw4</code> folder</td>
+<td style="text-align: center;">5</td>
+</tr>
+</tbody>
+</table>
+<!-- -->
+
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "HW 4 — Detective Gutenberg: The Full Investigation"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "LIN 301: Computation for Linguists"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Dr. Andrew M. Byrd"</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 2</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> python3</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="an">fontsize:</span><span class="co"> 12pt</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">## Overview</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>This homework is the Detective Gutenberg activity from October 7 and October 9, finished and polished into one submittable document. If you kept up with both activity days, most of the work here is already done in your <span class="in">`gut_detective.qmd`</span> — this assignment asks you to bring it all together on your **final** two novels, make sure every step actually runs start to finish, and write up your verdict.</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>Everything below has already been modeled in class — in the slides, in the activity, or in the sample solutions I walked through. There are no new techniques here. That means there's no excuse for code that doesn't run, and it also means the thing I'm actually grading is whether you can explain, in your own words, what your code is doing and why — because copying a working pattern is not the same as understanding it.</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>**Pick your own two novels**, by two different authors, from Project Gutenberg. (Don't just turn in the class examples — *Alice in Wonderland* and *Mansfield Park* — as your submission; pick two of your own.) Everything you do should run on *your* books, not the ones from the slides.</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>You will create **one** Quarto document named <span class="in">`hw4_detective_gutenberg_lastname_firstname.qmd`</span>, living inside a folder called <span class="in">`hw4`</span> in your <span class="in">`homework/`</span> folder. As always, fence every chunk with `<span class="in">``` ```</span>{python} ```` (not plain `<span class="in">``` ```</span>python ````), and make sure your document renders cleanly to HTML before you submit.</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>**Explain-and-disclose requirement:** under each part below, write a few sentences in your own words explaining what your code does — not what the output shows, but how the code gets there — and say whether and how you used any AI tool (ChatGPT, Copilot, autocomplete suggestions, anything) for that part. This isn't a gotcha; using these tools well is a real skill, and I'd rather know how you're using them than have you hide it. But since the exact code for this assignment is sitting in the lecture slides, an explanation of code you don't actually understand is usually easy to spot.</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 1 — Setup and Cleaning</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>**Goal:** download your two novels, strip off the Gutenberg header and footer from each, and end up with a clean list of lowercase words for each book.</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Download both novels (Plain Text UTF-8) into <span class="in">`../../data/gutenberg/`</span> — or wherever your <span class="in">`hw4`</span> folder expects them — with clear filenames.</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Read each one in with <span class="in">`.readlines()`</span>, inside a <span class="in">`try`</span>/<span class="in">`except`</span> so a bad filename doesn't crash the whole document.</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use your <span class="in">`while`</span> loops to chop the header off the front and the footer off the back of each book, the same way you did with *Alice*.</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Glue the lines back together, lowercase, and split into words with <span class="in">`re.split()`</span>, removing any empty strings left behind.</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>*Explain what your cleaning code is doing, and disclose any AI use for this part.*</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 2 — Tokens, Types, and a Fair Comparison</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>**Goal:** compare the vocabulary richness of your two books, correctly.</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>For each book, report the total word count (tokens), the number of unique words (types), and the type–token ratio.</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Compare the two raw TTRs — which book looks like it has the richer vocabulary?</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Now compute the TTR of just the first 10,000 words of each book, and compare again. Explain, in your own words, why this second comparison is the fairer one.</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Report the average word length for each book.</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>*Explain your code for this part, and disclose any AI use.*</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 3 — Affixes, Dialogue, and Common Words</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>**Goal:** find measurable differences between your two authors' styles.</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Report each book's rate of **-ly** words per 1,000 words, and look at the actual list — are they all adverbs, or does something else sneak in?</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Pick **three more affixes** of your own choosing and report the per-1,000-word rate of each, for both books.</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Using your header-free lines from Part 1, report what percentage of each book's lines contain dialogue, however your book happens to mark it.</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Report each book's **10 most common content words** (after removing stopwords), and say what they suggest about each book's characters, setting, or themes.</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>*Explain your code for this part, and disclose any AI use.*</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 4 — Visualize It</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>**Goal:** show your findings as charts.</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Make **one bar chart** comparing your two authors on a single measure of your choice from Part 3.</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Make **one Zipf plot** — rank vs. frequency, log scale on both axes — with **both** books on the same chart, each with its own label and a legend.</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Every chart needs a title, axis labels, and should be saved to a file with <span class="in">`plt.savefig()`</span>.</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>*Explain your code for this part, and disclose any AI use.*</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 5 — The Verdict</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>Below your code, write a short paragraph:</span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>What makes each author's style distinctive, based on what you measured?</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Which measure was the most revealing? Which was the least useful?</span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>If someone handed you an anonymous chapter, which single measure would you reach for first to guess the author, and why?</span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="fu">## Part 6 — Reflection</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>A short (4–6 sentence) reflection:</span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>What was the biggest difference between running this activity in class on Day 1/2 and finishing it on your own for homework?</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Of everything you found, what's the most interesting or surprising result?</span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Overall, where did you lean most on an AI tool, if anywhere — and where did you deliberately not use one? Why?</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quick Reference</span></span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>Here is a quick reference for the Python techniques you will need to use in this assignment. You can copy and paste these snippets into your own code, but make sure you understand what each one does before you do.</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> What you need to do <span class="pp">|</span> How <span class="pp">|</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Read a file line by line <span class="pp">|</span> <span class="in">`with open(path, encoding="utf-8") as f: lines = f.readlines()`</span> <span class="pp">|</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Handle a bad filename without crashing <span class="pp">|</span> <span class="in">`try: ... except FileNotFoundError: ...`</span> <span class="pp">|</span></span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Chop lines off the front while a condition holds <span class="pp">|</span> <span class="in">`while not lines[0].startswith("..."): lines = lines[1:]`</span> <span class="pp">|</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Chop lines off the back while a condition holds <span class="pp">|</span> <span class="in">`while not lines[-1].startswith("..."): lines = lines[:-1]`</span> <span class="pp">|</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Glue a list of lines back into one string <span class="pp">|</span> <span class="in">`"".join(lines)`</span> <span class="pp">|</span></span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Split text into words, removing punctuation <span class="pp">|</span> <span class="in">`re.split(r"[\W]+", text.lower())`</span>, then drop empty strings <span class="pp">|</span></span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Count tokens / types / TTR <span class="pp">|</span> <span class="in">`len(words)`</span>, <span class="in">`len(set(words))`</span>, <span class="in">`len(set(words)) / len(words)`</span> <span class="pp">|</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Slice the first N items <span class="pp">|</span> <span class="in">`words[:10000]`</span> <span class="pp">|</span></span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Running total inside a loop <span class="pp">|</span> <span class="in">`total = 0`</span> then <span class="in">`total += len(w)`</span> for each <span class="in">`w`</span> <span class="pp">|</span></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Turn a count into a rate per 1,000 <span class="pp">|</span> <span class="in">`count / len(words) * 1000`</span> <span class="pp">|</span></span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Check the start/end of a string <span class="pp">|</span> <span class="in">`word.startswith("un")`</span>, <span class="in">`word.endswith("ly")`</span> <span class="pp">|</span></span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Build a filtered list in one line <span class="pp">|</span> <span class="in">`[w for w in words if condition(w)]`</span> <span class="pp">|</span></span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Count and rank items <span class="pp">|</span> <span class="in">`Counter(words).most_common(n)`</span> <span class="pp">|</span></span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Bar chart <span class="pp">|</span> <span class="in">`plt.bar(labels, values)`</span> <span class="pp">|</span></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Line chart with a log–log scale <span class="pp">|</span> <span class="in">`plt.plot(ranks, freqs)`</span> then <span class="in">`plt.xscale("log")`</span>, <span class="in">`plt.yscale("log")`</span> <span class="pp">|</span></span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Multiple lines on one chart with a legend <span class="pp">|</span> <span class="in">`plt.plot(x, y, label="...")`</span> for each, then <span class="in">`plt.legend()`</span> <span class="pp">|</span></span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="fu">## Submission</span></span>
+<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a>Your <span class="in">`LIN_301`</span> repo is public, so instead of uploading a file to Canvas, you'll submit a **link** straight to your <span class="in">`homework/hw4`</span> folder on GitHub.</span>
+<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Render your document.** Make sure your <span class="in">`.qmd`</span> renders cleanly to HTML.</span>
+<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Push everything.** Stage, commit, and push your entire <span class="in">`homework/hw4`</span> folder — your <span class="in">`.qmd`</span>, the rendered <span class="in">`.html`</span>, both novel <span class="in">`.txt`</span> files, and any saved chart images — to your <span class="in">`LIN_301`</span> GitHub repo.</span>
+<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a><span class="ss">3.  </span>**Get the folder's GitHub address.** On github.com, navigate into your repo to <span class="in">`homework/hw4`</span>, and copy the URL from your browser's address bar. It'll look like:</span>
+<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a>    <span class="in">```</span></span>
+<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="in">    https://github.com/your-username/LIN_301/tree/main/homework/hw4</span></span>
+<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a><span class="in">    ```</span></span>
+<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a><span class="ss">4.  </span>**Submit that link on Canvas** — no file upload needed.</span>
+<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a><span class="ss">5.  </span>Be sure to replace "lastname_firstname" with your actual last name and first name in your <span class="in">`.qmd`</span> filename.</span>
+<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a><span class="fu">## Grading Rubric (100 pts total)</span></span>
+<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="fu">### Part 1 — Setup and Cleaning (15 pts)</span></span>
+<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Criteria <span class="pp">|</span> Points <span class="pp">|</span></span>
+<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------------------------------------|:-----------------------------:|</span></span>
+<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Both novels downloaded, loaded, and correctly cleaned (headers/footers removed, lowercased, split, empties removed) <span class="pp">|</span> 10 <span class="pp">|</span></span>
+<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Explanation of the code holds up and matches what it actually does <span class="pp">|</span> 5 <span class="pp">|</span></span>
+<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a><span class="fu">### Part 2 — Tokens, Types, and a Fair Comparison (20 pts)</span></span>
+<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-152"><a href="#cb2-152" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Criteria <span class="pp">|</span> Points <span class="pp">|</span></span>
+<span id="cb2-153"><a href="#cb2-153" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------------------------------------|:-----------------------------:|</span></span>
+<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Tokens, types, TTR, 10,000-word TTR, and average word length all correctly computed for both books <span class="pp">|</span> 10 <span class="pp">|</span></span>
+<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Correctly explains why the 10,000-word comparison is fairer than the raw one <span class="pp">|</span> 5 <span class="pp">|</span></span>
+<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Explanation of the code holds up <span class="pp">|</span> 5 <span class="pp">|</span></span>
+<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a><span class="fu">### Part 3 — Affixes, Dialogue, and Common Words (20 pts)</span></span>
+<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Criteria <span class="pp">|</span> Points <span class="pp">|</span></span>
+<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------------------------------------|:-----------------------------:|</span></span>
+<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> -ly rate, three chosen affixes, dialogue percentage, and top-10 content words all correctly computed for both books <span class="pp">|</span> 12 <span class="pp">|</span></span>
+<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Genuine engagement with what the results suggest about each author/book <span class="pp">|</span> 3 <span class="pp">|</span></span>
+<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Explanation of the code holds up <span class="pp">|</span> 5 <span class="pp">|</span></span>
+<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a><span class="fu">### Part 4 — Visualize It (15 pts)</span></span>
+<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Criteria <span class="pp">|</span> Points <span class="pp">|</span></span>
+<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------------------------------------|:-----------------------------:|</span></span>
+<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Bar chart and dual-book Zipf plot both correct, labeled, and saved to file <span class="pp">|</span> 10 <span class="pp">|</span></span>
+<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Explanation of the code holds up <span class="pp">|</span> 5 <span class="pp">|</span></span>
+<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a><span class="fu">### Part 5 — The Verdict (10 pts)</span></span>
+<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-175"><a href="#cb2-175" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Criteria <span class="pp">|</span> Points <span class="pp">|</span></span>
+<span id="cb2-176"><a href="#cb2-176" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------------------------------------|:-----------------------------:|</span></span>
+<span id="cb2-177"><a href="#cb2-177" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Specific, well-reasoned answers grounded in the student's own results <span class="pp">|</span> 10 <span class="pp">|</span></span>
+<span id="cb2-178"><a href="#cb2-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-179"><a href="#cb2-179" aria-hidden="true" tabindex="-1"></a><span class="fu">### Part 6 — Reflection &amp; AI Disclosure (15 pts)</span></span>
+<span id="cb2-180"><a href="#cb2-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-181"><a href="#cb2-181" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Criteria <span class="pp">|</span> Points <span class="pp">|</span></span>
+<span id="cb2-182"><a href="#cb2-182" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------------------------------------|:-----------------------------:|</span></span>
+<span id="cb2-183"><a href="#cb2-183" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Thoughtful, specific answers to the reflection prompts <span class="pp">|</span> 8 <span class="pp">|</span></span>
+<span id="cb2-184"><a href="#cb2-184" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Honest, specific AI-use disclosure (including "I didn't use one," if true) at each point it was asked for <span class="pp">|</span> 7 <span class="pp">|</span></span>
+<span id="cb2-185"><a href="#cb2-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-186"><a href="#cb2-186" aria-hidden="true" tabindex="-1"></a><span class="fu">### Presentation &amp; Reproducibility (5 pts)</span></span>
+<span id="cb2-187"><a href="#cb2-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-188"><a href="#cb2-188" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Criteria <span class="pp">|</span> Points <span class="pp">|</span></span>
+<span id="cb2-189"><a href="#cb2-189" aria-hidden="true" tabindex="-1"></a><span class="pp">|-----------------------------------------|:-----------------------------:|</span></span>
+<span id="cb2-190"><a href="#cb2-190" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> File named correctly; document renders without errors; code and answers clearly organized by part; GitHub link points to the <span class="in">`hw4`</span> folder <span class="pp">|</span> 5 <span class="pp">|</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
