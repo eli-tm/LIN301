@@ -141,7 +141,7 @@ print("The King in Yellow has", king_ly_rate, "-ly words per 1000 words.")
 
 oz_ly = set()               #repeat for the second novel
 for w in oz_words:
-    if w.endswith(ly):
+    if w.endswith("ly"):
         oz_ly.add(w)
 #printing the results:
 print("The Wizard of Oz has", len(oz_ly), "words that end in -ly.")
@@ -273,6 +273,8 @@ The Wizard of Oz percentage: ~17.43%
 ### Common Words
 The following code is how I analyzed the word lists of each novel to find the top 10 content words for each.
 ``` {python}
+from collections import Counter
+
 stopwords = ["the", "to", "and", "of", "a", "her", "i", "in", "was", "it",
              "she", "he", "be", "that", "you", "not", "had", "as", "his", "for",
              "with", "is", "have", "but", "at", "so", "all", "my", "been", "him",
@@ -340,3 +342,50 @@ The top 10 words in The Wizard of Oz are ['dorothy', 'scarecrow', 'woodman', 'li
     This lists shows the names of the major characters such as Dorothy, Scarecrow, Lion, Oz, Tin Woodman (which appear as 2 items), and witch (but not wicked witch!). Dorothy's dog's name is not included.
 
 ## Part 4 - Visualize It
+The following code is how I plotted the data for the top 10 content words bar graph in both novels, and how I plotted the zipf's law ranks vs. frequencies line graph.
+``` {python}
+import matplotlib.pyplot as plt
+
+# bar chart for the top 10 content words of both novels
+plt.bar(king_content_labels, king_content_freqs, label="The King in Yellow")    #use matplotlib as plt with the option bar graph, create the x and y for the first novel, then label which novel it is. This seperates the data from the second novel so they appear in different colors automatically
+plt.bar(oz_content_labels, oz_content_freqs, label="The Wizard of Oz")      # repeat for second novel
+plt.legend()            #displays the color key
+plt.title("Top 10 Content Words in The King in Yellow and The Wizard of Oz")    #labels the entire chart
+plt.xlabel("Word")          #labels the x axis
+plt.ylabel("Frequency")     #labels the y axis
+plt.xticks(rotation=45)     #rotates the word labels by 45 degrees to fit more characters
+plt.tight_layout()          #keeps the rotated labels from getting cut off
+plt.savefig("hw4_content_top10.png")    #saves the chart in the same folder as the code being run
+plt.show()                  #displays the chart in all its glory
+```
+
+```{python}
+# zipf law plot for the ranks and frequencies of both novels
+king_freqs = [pair[1] for pair in Counter(king_words).most_common()]
+king_ranks = range(1, len(king_freqs) + 1)    
+
+oz_freqs = [pair[1] for pair in Counter(oz_words).most_common()]
+oz_ranks = range(1, len(oz_freqs) + 1)
+
+plt.plot(king_ranks, king_freqs, label="The King in Yellow")    #same as above but change the chart option to plot for line graph
+plt.plot(oz_ranks, oz_freqs, label="The Wizard of Oz")
+plt.legend()
+plt.title("Rank vs. Frequency for The King in Yellow and The Wizard of Oz")
+plt.xlabel("Rank")
+plt.ylabel("Frequency")
+plt.xscale("log")           #displays the data in log scale
+plt.yscale("log")           #displays the data in log scale
+plt.savefig("zipf_hw4.png")
+plt.show()
+```
+##### The results for both charts can be found in hw4/charts
+
+## Part 5 - The Verdict
+The novels I chose are very different from each other. The Wizard of Oz is a classic fairytale story for children with fantasy creatures and magic. The King in Yellow is supernatural lovecraftian horror with drama and romance. The styles of both authors are different for each of their audiences and genres. The King in Yellow is longer, more complex, and judging from the top 10 content words, contains a lot of imagery and more "showing" instead of "telling." The Wizard of Oz is shorter, less complex, and restates its character names more often, perhaps "telling" more than "showing."
+The TTR and content words were the most revealing of the differences between the two novels. The TTR showed that, even when accounting for the different novel lengths, the King in Yellow has a wider vocabulary. The least telling was the affix comparison. This was because how many occurences of a particular affix didn't reveal much about the authors' styles, and it was also difficult to pick affixes that accurately represented themselves. For example, I chose the affix -able, but I'm wondering if the data would be different if I also measured for -ible, since they are the same. It might've been interesting to measure how many words/verbs were in present vs. past tense, but because of how many variation of tense affixes there are, I wouldn't get much information from one or two affix comparisons. 
+If I was given a random chapter from either novel, I would check the chapter's top content words to find out which novel it's from. The content words will be the most revealing on what the chapter is about, which will help me tell if it's from the fairytale or horror story. 
+
+## Part 6 - Reflection
+The biggest difference between working on this activity in class versus on my own is the ability to easily request help. There were multiple times I was making simple mistakes and trying to over-complicate the solution.
+The most interesting part was the affix analysis. I felt like I had to be creative with which affixes I chose in order to actually get the targetted affixes in the resulting words and also account for how the affix may change with spelling.
+I did not use any AI tools in this assignment. I would rather learn from a *person* who can understand context and adapt to my learning style.

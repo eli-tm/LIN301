@@ -273,23 +273,28 @@ print("The top 10 words in The King in Yellow are", king_content_labels, "with c
 print("The top 10 words in The Wizard of Oz are", oz_content_labels, "with counts of", oz_content_freqs)
 
 print("====Plotting====")
-import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 
-all_top_words = (king_content_labels + oz_content_labels)
-all_top_freqs = (king_content_freqs + oz_content_freqs)
-colors = ["yellow", "yellow", "yellow", "yellow", "yellow", "yellow", "yellow", "yellow", "yellow", "yellow", "green", "green", "green", "green", "green", "green", "green", "green", "green", "green"]
-color_box = mpatches.Patch(color= 'yellow', label='The King in Yellow', linewidth=2, alpha=0.7)
-
-plt.bar(all_top_words, all_top_freqs, color=colors)
-plt.legend(handles=[color_box], loc='upper right', framealpha=0.5, frameon=True)
-plt.title("Top 10 Content Words in The King in Yellow and The Wizard of Oz")
-plt.xlabel("Word")
-plt.ylabel("Frequency")
-plt.xticks(rotation=45)
-plt.tight_layout()    # keeps the rotated labels from getting cut off
+# bar chart for the top 10 content words of both novels
+#plt.bar(king_content_labels, king_content_freqs, label="The King in Yellow")
+#plt.bar(oz_content_labels, oz_content_freqs, label="The Wizard of Oz")
+#plt.legend()
+#plt.title("Top 10 Content Words in The King in Yellow and The Wizard of Oz")
+#plt.xlabel("Word")
+#plt.ylabel("Frequency")
+#plt.xticks(rotation=45)
+#plt.tight_layout()    # keeps the rotated labels from getting cut off
 #plt.savefig("hw4_content_top10.png")
 #plt.show()
 
-#zipf law plot
-
+# zipf law plot for the ranks and frequencies of both novels
+plt.plot(king_ranks, king_freqs, label="The King in Yellow")
+plt.plot(oz_ranks, oz_freqs, label="The Wizard of Oz")
+plt.legend()
+plt.title("Rank vs. Frequency for The King in Yellow and The Wizard of Oz")
+plt.xlabel("Rank")
+plt.ylabel("Frequency")
+plt.xscale("log")
+plt.yscale("log")
+plt.savefig("zipf_hw4.png")
+plt.show()
