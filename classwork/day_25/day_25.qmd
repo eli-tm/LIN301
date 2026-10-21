@@ -1,0 +1,304 @@
+title: "Day 25 Classwork"
+subtitle: "LIN 301: Computation for Linguists"
+author: "Eli Trainor"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-tools: true
+jupyter: python3
+fontsize: 12pt
+---
+
+## Setup (s9)
+``` {python}
+import re
+import pandas as pd
+
+# Stopwords (from Day 18)
+stopwords = ["the", "to", "and", "of", "a", "her", "i", "in", "was", "it",
+             "she", "he", "be", "that", "you", "not", "had", "as", "his", "for",
+             "with", "is", "have", "but", "at", "so", "all", "my", "been", "him",
+             "on", "by", "could", "would", "very", "no", "what", "which", "they",
+             "were", "there", "me", "an", "must", "this", "said", "from", "or",
+             "will", "any", "much", "than", "such", "their", "them", "if", "do",
+             "did", "one", "when", "your", "more", "are", "we", "who", "up",
+             "out", "down", "into", "s", "t"]
+
+# 1. Load Alice and cut off the Gutenberg header and footer
+with open("../../data/gutenberg/alice.txt", "r", encoding="utf-8") as f:
+    alice_lines = f.readlines()
+
+while not alice_lines[0].startswith("*** START"):
+    alice_lines = alice_lines[1:]
+alice_lines = alice_lines[1:]
+
+while not alice_lines[-1].startswith("*** END"):
+    alice_lines = alice_lines[:-1]
+alice_lines = alice_lines[:-1]
+
+alice_text = "".join(alice_lines)
+
+# 2. Split into chapters (and drop everything before Chapter I)
+chapters = re.split(r"\nCHAPTER [IVXL]+", alice_text)
+chapters = chapters[1:]
+
+# 3. One row per word, with its chapter
+rows = []
+chapter_num = 0
+
+for chapter in chapters:
+    chapter_num += 1
+    words = re.split(r"[\W_]+", chapter.lower())   # split on \W AND on _
+    words = [w for w in words if w != ""]
+    for w in words:
+        rows.append({"word": w, "chapter": chapter_num})
+
+alice_df = pd.DataFrame(rows)
+
+# 4. Save it for next time
+alice_df.to_csv("alice_words.csv", index=False, encoding="utf-8-sig")
+```
+
+## Checking Setup (s10)
+``` {python}
+print(len(alice_df))
+print(alice_df["chapter"].nunique())
+print(alice_df.head())
+```
+
+## Value Counts (s13)
+``` {python}
+alice_df["word"].value_counts()     # top words
+content = alice_df[~alice_df["word"].isin(stopwords)]
+content["word"].value_counts().head(10)     # top content words
+```
+
+## Chapter Length (s14)
+``` {python}
+alice_df["chapter"].value_counts()
+alice_df["chapter"].value_counts().sort_index()
+```
+
+## Review Activity (s15)
+``` {python}
+ch1_content = content[content["chapter"] == 1]
+print(ch1_content.head())
+
+ch1_content["word"].value_counts().head(5)
+
+# same but shorter:
+ch1_content = alice_df[(alice_df["chapter"] == 1) & (~alice_df["word"].isin(stopwords))]
+ch1_content["word"].value_counts().head(5)
+```
+
+## Filtering Queen (s21)
+``` {python}
+queen = alice_df[alice_df["word"] == "queen"]
+queen["chapter"].value_counts().sort_index()
+```
+
+## Filter Activity (s22)
+``` {python}
+cat = alice_df[alice_df["word"] == "cat"]
+print(cat["chapter"].value_counts().sort_index())
+
+hatter = alice_df[alice_df["word"] == "hatter"]
+print(hatter["chapter"].value_counts().sort_index())
+
+ly = alice_df[alice_df["word"].str.endswith("ly") == "queen"]
+print(ly["chapter"].value_counts().sort_index())
+```
+
+## Old vs. New (s23)
+``` {python}
+# old way:
+queen_by_chapter = {}
+
+for w, ch in zip(alice_df["word"], alice_df["chapter"]):
+    if w == "queen":
+        if ch in queen_by_chapter:
+            queen_by_chapter[ch] += 1
+        else:
+            queen_by_chapter[ch] = 1
+
+print(queen_by_chapter)
+
+# new way:
+alice_df[alice_df["word"] == "queen"]["chapter"].value_counts().sort_index()
+```
+Same numbers! But Pandas is a lot easier to look at and understand.
+
+## Adding a Column (s26)
+``` {python}
+alice_df["length"] = alice_df["word"].str.len()
+alice_df.head()
+```
+
+## Frue/Talse Columns (s27)
+``` {python}
+alice_df["is_ly"] = alice_df["word"].str.endswith("ly")
+alice_df["is_stopword"] = alice_df["word"].isin(stopwords)
+alice_df.head(10)
+```
+
+## Single Value Collumns (s28)
+``` {python}
+alice_df["text"] = "alice"
+alice_df.head()
+```
+
+## TTR (s30)
+``` {python}
+tokens = len(alice_df)
+types = alice_df["word"].nunique()     # number of unique words
+
+print(tokens, types, types / tokens)
+```
+
+## Sorting (s31)
+``` {python}
+alice_df.sort_values("length", ascending=False).head(10)
+```
+The list contians duplicates. 
+
+``` {python}
+alice_types = alice_df.drop_duplicates("word")
+alice_types.sort_values("length", ascending=False).head(10)
+```
+
+## Building Mansfield Park (s34)
+``` {python}
+with open("../../data/gutenberg/mansfield_park.txt", "r", encoding="utf-8") as f:
+    mp_lines = f.readlines()
+
+while not mp_lines[0].startswith("*** START"):
+    mp_lines = mp_lines[1:]
+mp_lines = mp_lines[1:]
+
+while not mp_lines[-1].startswith("*** END"):
+    mp_lines = mp_lines[:-1]
+mp_lines = mp_lines[:-1]
+
+mp_text = "".join(mp_lines)
+
+mp_chapters = re.split(r"\nCHAPTER [IVXL]+", mp_text)
+mp_chapters = mp_chapters[1:]
+
+mp_rows = []
+chapter_num = 0
+
+for chapter in mp_chapters:
+    chapter_num += 1
+    words = re.split(r"[\W_]+", chapter.lower())   # split on \W AND on _
+    words = [w for w in words if w != ""]
+    for w in words:
+        mp_rows.append({"word": w, "chapter": chapter_num})
+
+mp_df = pd.DataFrame(mp_rows)
+
+print(len(mp_df))
+print(mp_df["chapter"].nunique())
+```
+
+## Adding Columns (s35)
+``` {python}
+mp_df["length"] = mp_df["word"].str.len()
+mp_df["is_ly"] = mp_df["word"].str.endswith("ly")
+mp_df["is_stopword"] = mp_df["word"].isin(stopwords)
+mp_df["text"] = "mansfield"
+
+# double checking the table works (because nothing is printing):
+mp_types = mp_df.drop_duplicates("word")
+mp_types.sort_values("length", ascending=False).head(10)
+```
+
+## Stacking (s36)
+``` {python}
+books = pd.concat([alice_df, mp_df], ignore_index=True)
+
+print(len(alice_df), len(mp_df), len(books))
+books["text"].value_counts()
+```
+
+## Grouping (s40)
+``` {python}
+books.groupby("text")["length"].mean()
+
+print(books.groupby("text")["length"].mean())
+```
+
+## Using Groups (s41)
+``` {python}
+print(books.groupby("text").size())
+print(books.groupby("text")["word"].nunique())
+print(books.groupby("text")["length"].max())
+```
+Mansfield is longer, so the TTR isn't fairly measured.
+
+## Fairly -LY (s44)
+``` {python}
+books.groupby("text")["is_ly"].mean()
+ly_rate = books.groupby("text")["is_ly"].mean() * 1000
+print(ly_rate)
+```
+The rates are a tiny bit closer now.
+
+## Proportions (s45)
+``` {python}
+print(alice_df["word"].value_counts(normalize=True).head(10))
+print("-------")
+mp_df["word"].value_counts(normalize=True).head(10)
+```
+
+## Plotting (s47)
+``` {python}
+import matplotlib.pyplot as plt
+
+ly_rate.plot(kind="bar")
+plt.title("-ly Words per 1,000 Words")
+plt.xlabel("Text")
+plt.ylabel("Rate per 1,000 words")
+plt.show()
+```
+
+## Activity: Carroll vs. Austen
+#### Part 1: Which book has longer words on average
+``` {python}
+print(books.groupby("text")["length"].mean())
+```
+Mansfield has a longer average word length, but just by .4 characters!
+
+#### Part 2: She vs. He
+```` {python}
+books["is_she"] = books["word"] == "she"
+books["is_he"] = books["word"] == "he"
+
+print(books.groupby("text")["is_she"].mean() * 1000)  
+print(books.groupby("text")["is_he"].mean() * 1000) 
+````
+
+#### Part 3: Stopwords Ratio
+```` {python}
+print(books.groupby("text")["is_stopword"].mean())
+````
+Almost equal! (I think I've noticed this tends to be a trend in large texts: almost half of the words are stopwords, and the other half are content words. Is this true for all long texts? I wonder what the TTR is of an English Dictionary...)
+
+#### Part 4: Plotting She/He
+``` {python}
+import matplotlib.pyplot as plt
+
+avg_wordlength = books.groupby("text")["length"].mean()
+
+avg_wordlength.plot(kind="bar")
+plt.title("'Average Word Length")
+plt.xlabel("Text")
+plt.xticks(rotation=90)      # attempt to fix the vertical labels, which doesn't work for some reason?
+plt.ylabel("Length")
+plt.show()
+```
+
+#### Part 5: Response
+In 2–3 sentences: what do your numbers tell you about these two books? Write your answer as plain text (not in a chunk) at the bottom of day25.qmd.
+The results of the activity tell me that Mansfield and Alice have a similar reading level with different lengths. And Alice describes more female characters than Mansfield. 
+

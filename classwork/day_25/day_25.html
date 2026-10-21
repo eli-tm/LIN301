@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>day_25</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="day_25_files/libs/clipboard/clipboard.min.js"></script>
+<script src="day_25_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="day_25_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="day_25_files/libs/quarto-html/popper.min.js"></script>
+<script src="day_25_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="day_25_files/libs/quarto-html/anchor.min.js"></script>
+<link href="day_25_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="day_25_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="day_25_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="day_25_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="day_25_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<p>title: “Day 25 Classwork” subtitle: “LIN 301: Computation for Linguists” author: “Eli Trainor” format: html: toc: true toc-depth: 2 code-tools: true jupyter: python3 fontsize: 12pt —</p>
+<section id="setup-s9" class="level2">
+<h2 class="anchored" data-anchor-id="setup-s9">Setup (s9)</h2>
+<div id="4cca0d52" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> re</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Stopwords (from Day 18)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>stopwords <span class="op">=</span> [<span class="st">"the"</span>, <span class="st">"to"</span>, <span class="st">"and"</span>, <span class="st">"of"</span>, <span class="st">"a"</span>, <span class="st">"her"</span>, <span class="st">"i"</span>, <span class="st">"in"</span>, <span class="st">"was"</span>, <span class="st">"it"</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>             <span class="st">"she"</span>, <span class="st">"he"</span>, <span class="st">"be"</span>, <span class="st">"that"</span>, <span class="st">"you"</span>, <span class="st">"not"</span>, <span class="st">"had"</span>, <span class="st">"as"</span>, <span class="st">"his"</span>, <span class="st">"for"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>             <span class="st">"with"</span>, <span class="st">"is"</span>, <span class="st">"have"</span>, <span class="st">"but"</span>, <span class="st">"at"</span>, <span class="st">"so"</span>, <span class="st">"all"</span>, <span class="st">"my"</span>, <span class="st">"been"</span>, <span class="st">"him"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>             <span class="st">"on"</span>, <span class="st">"by"</span>, <span class="st">"could"</span>, <span class="st">"would"</span>, <span class="st">"very"</span>, <span class="st">"no"</span>, <span class="st">"what"</span>, <span class="st">"which"</span>, <span class="st">"they"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>             <span class="st">"were"</span>, <span class="st">"there"</span>, <span class="st">"me"</span>, <span class="st">"an"</span>, <span class="st">"must"</span>, <span class="st">"this"</span>, <span class="st">"said"</span>, <span class="st">"from"</span>, <span class="st">"or"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>             <span class="st">"will"</span>, <span class="st">"any"</span>, <span class="st">"much"</span>, <span class="st">"than"</span>, <span class="st">"such"</span>, <span class="st">"their"</span>, <span class="st">"them"</span>, <span class="st">"if"</span>, <span class="st">"do"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>             <span class="st">"did"</span>, <span class="st">"one"</span>, <span class="st">"when"</span>, <span class="st">"your"</span>, <span class="st">"more"</span>, <span class="st">"are"</span>, <span class="st">"we"</span>, <span class="st">"who"</span>, <span class="st">"up"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>             <span class="st">"out"</span>, <span class="st">"down"</span>, <span class="st">"into"</span>, <span class="st">"s"</span>, <span class="st">"t"</span>]</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Load Alice and cut off the Gutenberg header and footer</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../data/gutenberg/alice.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    alice_lines <span class="op">=</span> f.readlines()</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="kw">not</span> alice_lines[<span class="dv">0</span>].startswith(<span class="st">"*** START"</span>):</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    alice_lines <span class="op">=</span> alice_lines[<span class="dv">1</span>:]</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>alice_lines <span class="op">=</span> alice_lines[<span class="dv">1</span>:]</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="kw">not</span> alice_lines[<span class="op">-</span><span class="dv">1</span>].startswith(<span class="st">"*** END"</span>):</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    alice_lines <span class="op">=</span> alice_lines[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>alice_lines <span class="op">=</span> alice_lines[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>alice_text <span class="op">=</span> <span class="st">""</span>.join(alice_lines)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Split into chapters (and drop everything before Chapter I)</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>chapters <span class="op">=</span> re.split(<span class="vs">r"</span><span class="ch">\n</span><span class="vs">CHAPTER </span><span class="pp">[IVXL]</span><span class="op">+</span><span class="vs">"</span>, alice_text)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>chapters <span class="op">=</span> chapters[<span class="dv">1</span>:]</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. One row per word, with its chapter</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> []</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>chapter_num <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> chapter <span class="kw">in</span> chapters:</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    chapter_num <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> re.split(<span class="vs">r"</span><span class="pp">[</span><span class="dv">\W</span><span class="pp">_]</span><span class="op">+</span><span class="vs">"</span>, chapter.lower())   <span class="co"># split on \W AND on _</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> [w <span class="cf">for</span> w <span class="kw">in</span> words <span class="cf">if</span> w <span class="op">!=</span> <span class="st">""</span>]</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> w <span class="kw">in</span> words:</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>        rows.append({<span class="st">"word"</span>: w, <span class="st">"chapter"</span>: chapter_num})</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>alice_df <span class="op">=</span> pd.DataFrame(rows)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Save it for next time</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>alice_df.to_csv(<span class="st">"alice_words.csv"</span>, index<span class="op">=</span><span class="va">False</span>, encoding<span class="op">=</span><span class="st">"utf-8-sig"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="checking-setup-s10" class="level2">
+<h2 class="anchored" data-anchor-id="checking-setup-s10">Checking Setup (s10)</h2>
+<div id="d61c7132" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(alice_df))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alice_df[<span class="st">"chapter"</span>].nunique())</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alice_df.head())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>27312
+12
+     word  chapter
+0    down        1
+1     the        1
+2  rabbit        1
+3    hole        1
+4   alice        1</code></pre>
+</div>
+</div>
+</section>
+<section id="value-counts-s13" class="level2">
+<h2 class="anchored" data-anchor-id="value-counts-s13">Value Counts (s13)</h2>
+<div id="cd9e236b" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>alice_df[<span class="st">"word"</span>].value_counts()     <span class="co"># top words</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>content <span class="op">=</span> alice_df[<span class="op">~</span>alice_df[<span class="st">"word"</span>].isin(stopwords)]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>content[<span class="st">"word"</span>].value_counts().head(<span class="dv">10</span>)     <span class="co"># top content words</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="178">
+<pre><code>word
+alice      397
+little     128
+then        94
+about       94
+know        87
+like        85
+went        83
+again       83
+herself     83
+queen       75
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="chapter-length-s14" class="level2">
+<h2 class="anchored" data-anchor-id="chapter-length-s14">Chapter Length (s14)</h2>
+<div id="6e504632" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>alice_df[<span class="st">"chapter"</span>].value_counts()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>alice_df[<span class="st">"chapter"</span>].value_counts().sort_index()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="179">
+<pre><code>chapter
+1     2193
+2     2186
+3     1739
+4     2738
+5     2243
+6     2670
+7     2385
+8     2559
+9     2364
+10    2101
+11    1945
+12    2189
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="review-activity-s15" class="level2">
+<h2 class="anchored" data-anchor-id="review-activity-s15">Review Activity (s15)</h2>
+<div id="933168cf" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ch1_content <span class="op">=</span> content[content[<span class="st">"chapter"</span>] <span class="op">==</span> <span class="dv">1</span>]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ch1_content.head())</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>ch1_content[<span class="st">"word"</span>].value_counts().head(<span class="dv">5</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># same but shorter:</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ch1_content <span class="op">=</span> alice_df[(alice_df[<span class="st">"chapter"</span>] <span class="op">==</span> <span class="dv">1</span>) <span class="op">&amp;</span> (<span class="op">~</span>alice_df[<span class="st">"word"</span>].isin(stopwords))]</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>ch1_content[<span class="st">"word"</span>].value_counts().head(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        word  chapter
+2     rabbit        1
+3       hole        1
+4      alice        1
+6  beginning        1
+8        get        1</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="180">
+<pre><code>word
+alice      28
+little     15
+way        13
+herself    13
+think      11
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="filtering-queen-s21" class="level2">
+<h2 class="anchored" data-anchor-id="filtering-queen-s21">Filtering Queen (s21)</h2>
+<div id="1d781f34" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>queen <span class="op">=</span> alice_df[alice_df[<span class="st">"word"</span>] <span class="op">==</span> <span class="st">"queen"</span>]</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>queen[<span class="st">"chapter"</span>].value_counts().sort_index()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="181">
+<pre><code>chapter
+6      4
+7      2
+8     36
+9     14
+11     9
+12    10
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="filter-activity-s22" class="level2">
+<h2 class="anchored" data-anchor-id="filter-activity-s22">Filter Activity (s22)</h2>
+<div id="87f4f909" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>cat <span class="op">=</span> alice_df[alice_df[<span class="st">"word"</span>] <span class="op">==</span> <span class="st">"cat"</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(cat[<span class="st">"chapter"</span>].value_counts().sort_index())</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>hatter <span class="op">=</span> alice_df[alice_df[<span class="st">"word"</span>] <span class="op">==</span> <span class="st">"hatter"</span>]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hatter[<span class="st">"chapter"</span>].value_counts().sort_index())</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>ly <span class="op">=</span> alice_df[alice_df[<span class="st">"word"</span>].<span class="bu">str</span>.endswith(<span class="st">"ly"</span>) <span class="op">==</span> <span class="st">"queen"</span>]</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ly[<span class="st">"chapter"</span>].value_counts().sort_index())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>chapter
+1     1
+2     1
+3     2
+6    22
+8    11
+Name: count, dtype: int64
+chapter
+6      2
+7     33
+11    21
+Name: count, dtype: int64
+Series([], Name: count, dtype: int64)</code></pre>
+</div>
+</div>
+</section>
+<section id="old-vs.-new-s23" class="level2">
+<h2 class="anchored" data-anchor-id="old-vs.-new-s23">Old vs.&nbsp;New (s23)</h2>
+<div id="b9b3db0e" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># old way:</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>queen_by_chapter <span class="op">=</span> {}</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> w, ch <span class="kw">in</span> <span class="bu">zip</span>(alice_df[<span class="st">"word"</span>], alice_df[<span class="st">"chapter"</span>]):</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> w <span class="op">==</span> <span class="st">"queen"</span>:</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> ch <span class="kw">in</span> queen_by_chapter:</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            queen_by_chapter[ch] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>            queen_by_chapter[ch] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(queen_by_chapter)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># new way:</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>alice_df[alice_df[<span class="st">"word"</span>] <span class="op">==</span> <span class="st">"queen"</span>][<span class="st">"chapter"</span>].value_counts().sort_index()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{6: 4, 7: 2, 8: 36, 9: 14, 11: 9, 12: 10}</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="183">
+<pre><code>chapter
+6      4
+7      2
+8     36
+9     14
+11     9
+12    10
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+<p>Same numbers! But Pandas is a lot easier to look at and understand.</p>
+</section>
+<section id="adding-a-column-s26" class="level2">
+<h2 class="anchored" data-anchor-id="adding-a-column-s26">Adding a Column (s26)</h2>
+<div id="5b3b02c8" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>alice_df[<span class="st">"length"</span>] <span class="op">=</span> alice_df[<span class="st">"word"</span>].<span class="bu">str</span>.<span class="bu">len</span>()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>alice_df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="184">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">word</th>
+<th data-quarto-table-cell-role="th">chapter</th>
+<th data-quarto-table-cell-role="th">length</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>down</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>the</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>rabbit</td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>hole</td>
+<td>1</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>alice</td>
+<td>1</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="fruetalse-columns-s27" class="level2">
+<h2 class="anchored" data-anchor-id="fruetalse-columns-s27">Frue/Talse Columns (s27)</h2>
+<div id="4e27c87c" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>alice_df[<span class="st">"is_ly"</span>] <span class="op">=</span> alice_df[<span class="st">"word"</span>].<span class="bu">str</span>.endswith(<span class="st">"ly"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>alice_df[<span class="st">"is_stopword"</span>] <span class="op">=</span> alice_df[<span class="st">"word"</span>].isin(stopwords)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>alice_df.head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="185">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">word</th>
+<th data-quarto-table-cell-role="th">chapter</th>
+<th data-quarto-table-cell-role="th">length</th>
+<th data-quarto-table-cell-role="th">is_ly</th>
+<th data-quarto-table-cell-role="th">is_stopword</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>down</td>
+<td>1</td>
+<td>4</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>the</td>
+<td>1</td>
+<td>3</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>rabbit</td>
+<td>1</td>
+<td>6</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>hole</td>
+<td>1</td>
+<td>4</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>alice</td>
+<td>1</td>
+<td>5</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">5</th>
+<td>was</td>
+<td>1</td>
+<td>3</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">6</th>
+<td>beginning</td>
+<td>1</td>
+<td>9</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">7</th>
+<td>to</td>
+<td>1</td>
+<td>2</td>
+<td>False</td>
+<td>True</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8</th>
+<td>get</td>
+<td>1</td>
+<td>3</td>
+<td>False</td>
+<td>False</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9</th>
+<td>very</td>
+<td>1</td>
+<td>4</td>
+<td>False</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="single-value-collumns-s28" class="level2">
+<h2 class="anchored" data-anchor-id="single-value-collumns-s28">Single Value Collumns (s28)</h2>
+<div id="cea933c2" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>alice_df[<span class="st">"text"</span>] <span class="op">=</span> <span class="st">"alice"</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>alice_df.head()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="186">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">word</th>
+<th data-quarto-table-cell-role="th">chapter</th>
+<th data-quarto-table-cell-role="th">length</th>
+<th data-quarto-table-cell-role="th">is_ly</th>
+<th data-quarto-table-cell-role="th">is_stopword</th>
+<th data-quarto-table-cell-role="th">text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>down</td>
+<td>1</td>
+<td>4</td>
+<td>False</td>
+<td>True</td>
+<td>alice</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>the</td>
+<td>1</td>
+<td>3</td>
+<td>False</td>
+<td>True</td>
+<td>alice</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>rabbit</td>
+<td>1</td>
+<td>6</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>hole</td>
+<td>1</td>
+<td>4</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>alice</td>
+<td>1</td>
+<td>5</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="ttr-s30" class="level2">
+<h2 class="anchored" data-anchor-id="ttr-s30">TTR (s30)</h2>
+<div id="004ac8bf" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>tokens <span class="op">=</span> <span class="bu">len</span>(alice_df)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>types <span class="op">=</span> alice_df[<span class="st">"word"</span>].nunique()     <span class="co"># number of unique words</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tokens, types, types <span class="op">/</span> tokens)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>27312 2557 0.09362185120093731</code></pre>
+</div>
+</div>
+</section>
+<section id="sorting-s31" class="level2">
+<h2 class="anchored" data-anchor-id="sorting-s31">Sorting (s31)</h2>
+<div id="8e4f0623" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>alice_df.sort_values(<span class="st">"length"</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="188">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">word</th>
+<th data-quarto-table-cell-role="th">chapter</th>
+<th data-quarto-table-cell-role="th">length</th>
+<th data-quarto-table-cell-role="th">is_ly</th>
+<th data-quarto-table-cell-role="th">is_stopword</th>
+<th data-quarto-table-cell-role="th">text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">431</th>
+<td>disappointment</td>
+<td>1</td>
+<td>14</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2916</th>
+<td>multiplication</td>
+<td>2</td>
+<td>14</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9099</th>
+<td>contemptuously</td>
+<td>5</td>
+<td>14</td>
+<td>True</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">18742</th>
+<td>affectionately</td>
+<td>9</td>
+<td>14</td>
+<td>True</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">14688</th>
+<td>contemptuously</td>
+<td>7</td>
+<td>14</td>
+<td>True</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3761</th>
+<td>inquisitively</td>
+<td>2</td>
+<td>13</td>
+<td>True</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">15332</th>
+<td>extraordinary</td>
+<td>7</td>
+<td>13</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">18467</th>
+<td>uncomfortable</td>
+<td>8</td>
+<td>13</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">12551</th>
+<td>straightening</td>
+<td>6</td>
+<td>13</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">11410</th>
+<td>extraordinary</td>
+<td>6</td>
+<td>13</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>The list contians duplicates.</p>
+<div id="9c0cbade" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>alice_types <span class="op">=</span> alice_df.drop_duplicates(<span class="st">"word"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>alice_types.sort_values(<span class="st">"length"</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="189">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">word</th>
+<th data-quarto-table-cell-role="th">chapter</th>
+<th data-quarto-table-cell-role="th">length</th>
+<th data-quarto-table-cell-role="th">is_ly</th>
+<th data-quarto-table-cell-role="th">is_stopword</th>
+<th data-quarto-table-cell-role="th">text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9099</th>
+<td>contemptuously</td>
+<td>5</td>
+<td>14</td>
+<td>True</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">18742</th>
+<td>affectionately</td>
+<td>9</td>
+<td>14</td>
+<td>True</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2916</th>
+<td>multiplication</td>
+<td>2</td>
+<td>14</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">431</th>
+<td>disappointment</td>
+<td>1</td>
+<td>14</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">11410</th>
+<td>extraordinary</td>
+<td>6</td>
+<td>13</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">8754</th>
+<td>circumstances</td>
+<td>4</td>
+<td>13</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">44</th>
+<td>conversations</td>
+<td>1</td>
+<td>13</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">12551</th>
+<td>straightening</td>
+<td>6</td>
+<td>13</td>
+<td>False</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">3761</th>
+<td>inquisitively</td>
+<td>2</td>
+<td>13</td>
+<td>True</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">19019</th>
+<td>uncomfortably</td>
+<td>9</td>
+<td>13</td>
+<td>True</td>
+<td>False</td>
+<td>alice</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="building-mansfield-park-s34" class="level2">
+<h2 class="anchored" data-anchor-id="building-mansfield-park-s34">Building Mansfield Park (s34)</h2>
+<div id="97759456" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">"../../data/gutenberg/mansfield_park.txt"</span>, <span class="st">"r"</span>, encoding<span class="op">=</span><span class="st">"utf-8"</span>) <span class="im">as</span> f:</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    mp_lines <span class="op">=</span> f.readlines()</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="kw">not</span> mp_lines[<span class="dv">0</span>].startswith(<span class="st">"*** START"</span>):</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    mp_lines <span class="op">=</span> mp_lines[<span class="dv">1</span>:]</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>mp_lines <span class="op">=</span> mp_lines[<span class="dv">1</span>:]</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="kw">not</span> mp_lines[<span class="op">-</span><span class="dv">1</span>].startswith(<span class="st">"*** END"</span>):</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    mp_lines <span class="op">=</span> mp_lines[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>mp_lines <span class="op">=</span> mp_lines[:<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>mp_text <span class="op">=</span> <span class="st">""</span>.join(mp_lines)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>mp_chapters <span class="op">=</span> re.split(<span class="vs">r"</span><span class="ch">\n</span><span class="vs">CHAPTER </span><span class="pp">[IVXL]</span><span class="op">+</span><span class="vs">"</span>, mp_text)</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>mp_chapters <span class="op">=</span> mp_chapters[<span class="dv">1</span>:]</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>mp_rows <span class="op">=</span> []</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>chapter_num <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> chapter <span class="kw">in</span> mp_chapters:</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>    chapter_num <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> re.split(<span class="vs">r"</span><span class="pp">[</span><span class="dv">\W</span><span class="pp">_]</span><span class="op">+</span><span class="vs">"</span>, chapter.lower())   <span class="co"># split on \W AND on _</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> [w <span class="cf">for</span> w <span class="kw">in</span> words <span class="cf">if</span> w <span class="op">!=</span> <span class="st">""</span>]</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> w <span class="kw">in</span> words:</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>        mp_rows.append({<span class="st">"word"</span>: w, <span class="st">"chapter"</span>: chapter_num})</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>mp_df <span class="op">=</span> pd.DataFrame(mp_rows)</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(mp_df))</span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mp_df[<span class="st">"chapter"</span>].nunique())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>161442
+48</code></pre>
+</div>
+</div>
+</section>
+<section id="adding-columns-s35" class="level2">
+<h2 class="anchored" data-anchor-id="adding-columns-s35">Adding Columns (s35)</h2>
+<div id="a472b754" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>mp_df[<span class="st">"length"</span>] <span class="op">=</span> mp_df[<span class="st">"word"</span>].<span class="bu">str</span>.<span class="bu">len</span>()</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>mp_df[<span class="st">"is_ly"</span>] <span class="op">=</span> mp_df[<span class="st">"word"</span>].<span class="bu">str</span>.endswith(<span class="st">"ly"</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>mp_df[<span class="st">"is_stopword"</span>] <span class="op">=</span> mp_df[<span class="st">"word"</span>].isin(stopwords)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>mp_df[<span class="st">"text"</span>] <span class="op">=</span> <span class="st">"mansfield"</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># double checking the table works (because nothing is printing):</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>mp_types <span class="op">=</span> mp_df.drop_duplicates(<span class="st">"word"</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>mp_types.sort_values(<span class="st">"length"</span>, ascending<span class="op">=</span><span class="va">False</span>).head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="191">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">word</th>
+<th data-quarto-table-cell-role="th">chapter</th>
+<th data-quarto-table-cell-role="th">length</th>
+<th data-quarto-table-cell-role="th">is_ly</th>
+<th data-quarto-table-cell-role="th">is_stopword</th>
+<th data-quarto-table-cell-role="th">text</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">109507</th>
+<td>disinterestedness</td>
+<td>33</td>
+<td>17</td>
+<td>False</td>
+<td>False</td>
+<td>mansfield</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">106420</th>
+<td>unaccountableness</td>
+<td>32</td>
+<td>17</td>
+<td>False</td>
+<td>False</td>
+<td>mansfield</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">37232</th>
+<td>indiscriminately</td>
+<td>11</td>
+<td>16</td>
+<td>True</td>
+<td>False</td>
+<td>mansfield</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">155400</th>
+<td>unsuspiciousness</td>
+<td>47</td>
+<td>16</td>
+<td>False</td>
+<td>False</td>
+<td>mansfield</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">79964</th>
+<td>predetermination</td>
+<td>25</td>
+<td>16</td>
+<td>False</td>
+<td>False</td>
+<td>mansfield</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">69646</th>
+<td>incomprehensible</td>
+<td>22</td>
+<td>16</td>
+<td>False</td>
+<td>False</td>
+<td>mansfield</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">3666</th>
+<td>prognostications</td>
+<td>2</td>
+<td>16</td>
+<td>False</td>
+<td>False</td>
+<td>mansfield</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">6516</th>
+<td>northamptonshire</td>
+<td>2</td>
+<td>16</td>
+<td>False</td>
+<td>False</td>
+<td>mansfield</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">55668</th>
+<td>kindheartedness</td>
+<td>18</td>
+<td>15</td>
+<td>False</td>
+<td>False</td>
+<td>mansfield</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">44055</th>
+<td>determinateness</td>
+<td>14</td>
+<td>15</td>
+<td>False</td>
+<td>False</td>
+<td>mansfield</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="stacking-s36" class="level2">
+<h2 class="anchored" data-anchor-id="stacking-s36">Stacking (s36)</h2>
+<div id="1ec73165" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>books <span class="op">=</span> pd.concat([alice_df, mp_df], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(alice_df), <span class="bu">len</span>(mp_df), <span class="bu">len</span>(books))</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>books[<span class="st">"text"</span>].value_counts()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>27312 161442 188754</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="192">
+<pre><code>text
+mansfield    161442
+alice         27312
+Name: count, dtype: int64</code></pre>
+</div>
+</div>
+</section>
+<section id="grouping-s40" class="level2">
+<h2 class="anchored" data-anchor-id="grouping-s40">Grouping (s40)</h2>
+<div id="c2b4a09f" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>books.groupby(<span class="st">"text"</span>)[<span class="st">"length"</span>].mean()</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(books.groupby(<span class="st">"text"</span>)[<span class="st">"length"</span>].mean())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>text
+alice        3.938086
+mansfield    4.281662
+Name: length, dtype: float64</code></pre>
+</div>
+</div>
+</section>
+<section id="using-groups-s41" class="level2">
+<h2 class="anchored" data-anchor-id="using-groups-s41">Using Groups (s41)</h2>
+<div id="5c9af90e" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(books.groupby(<span class="st">"text"</span>).size())</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(books.groupby(<span class="st">"text"</span>)[<span class="st">"word"</span>].nunique())</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(books.groupby(<span class="st">"text"</span>)[<span class="st">"length"</span>].<span class="bu">max</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>text
+alice         27312
+mansfield    161442
+dtype: int64
+text
+alice        2557
+mansfield    7717
+Name: word, dtype: int64
+text
+alice        14
+mansfield    17
+Name: length, dtype: int64</code></pre>
+</div>
+</div>
+<p>Mansfield is longer, so the TTR isn’t fairly measured.</p>
+</section>
+<section id="fairly--ly-s44" class="level2">
+<h2 class="anchored" data-anchor-id="fairly--ly-s44">Fairly -LY (s44)</h2>
+<div id="3c620efc" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>books.groupby(<span class="st">"text"</span>)[<span class="st">"is_ly"</span>].mean()</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>ly_rate <span class="op">=</span> books.groupby(<span class="st">"text"</span>)[<span class="st">"is_ly"</span>].mean() <span class="op">*</span> <span class="dv">1000</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ly_rate)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>text
+alice        15.634153
+mansfield    16.879127
+Name: is_ly, dtype: float64</code></pre>
+</div>
+</div>
+<p>The rates are a tiny bit closer now.</p>
+</section>
+<section id="proportions-s45" class="level2">
+<h2 class="anchored" data-anchor-id="proportions-s45">Proportions (s45)</h2>
+<div id="c40850c3" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(alice_df[<span class="st">"word"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>).head(<span class="dv">10</span>))</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"-------"</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>mp_df[<span class="st">"word"</span>].value_counts(normalize<span class="op">=</span><span class="va">True</span>).head(<span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>word
+the     0.060157
+and     0.031927
+to      0.026692
+a       0.023140
+it      0.021785
+she     0.020248
+i       0.019918
+of      0.018820
+said    0.016916
+you     0.015048
+Name: proportion, dtype: float64
+-------</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="196">
+<pre><code>word
+the    0.038472
+to     0.033919
+and    0.033690
+of     0.029596
+her    0.019369
+a      0.019202
+was    0.016470
+in     0.015597
+i      0.014835
+she    0.014098
+Name: proportion, dtype: float64</code></pre>
+</div>
+</div>
+</section>
+<section id="plotting-s47" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-s47">Plotting (s47)</h2>
+<div id="cdf1e732" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>ly_rate.plot(kind<span class="op">=</span><span class="st">"bar"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"-ly Words per 1,000 Words"</span>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Text"</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Rate per 1,000 words"</span>)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="day_25_files/figure-html/cell-23-output-1.png" width="585" height="503" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="activity-carroll-vs.-austen" class="level2">
+<h2 class="anchored" data-anchor-id="activity-carroll-vs.-austen">Activity: Carroll vs.&nbsp;Austen</h2>
+<section id="part-1-which-book-has-longer-words-on-average" class="level4">
+<h4 class="anchored" data-anchor-id="part-1-which-book-has-longer-words-on-average">Part 1: Which book has longer words on average</h4>
+<div id="ed827a98" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(books.groupby(<span class="st">"text"</span>)[<span class="st">"length"</span>].mean())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>text
+alice        3.938086
+mansfield    4.281662
+Name: length, dtype: float64</code></pre>
+</div>
+</div>
+<p>Mansfield has a longer average word length, but just by .4 characters!</p>
+</section>
+<section id="part-2-she-vs.-he" class="level4">
+<h4 class="anchored" data-anchor-id="part-2-she-vs.-he">Part 2: She vs.&nbsp;He</h4>
+<div id="cd1765e7" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>books[<span class="st">"is_she"</span>] <span class="op">=</span> books[<span class="st">"word"</span>] <span class="op">==</span> <span class="st">"she"</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>books[<span class="st">"is_he"</span>] <span class="op">=</span> books[<span class="st">"word"</span>] <span class="op">==</span> <span class="st">"he"</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(books.groupby(<span class="st">"text"</span>)[<span class="st">"is_she"</span>].mean() <span class="op">*</span> <span class="dv">1000</span>)  </span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(books.groupby(<span class="st">"text"</span>)[<span class="st">"is_he"</span>].mean() <span class="op">*</span> <span class="dv">1000</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>text
+alice        20.247510
+mansfield    14.097942
+Name: is_she, dtype: float64
+text
+alice        4.576743
+mansfield    9.650525
+Name: is_he, dtype: float64</code></pre>
+</div>
+</div>
+</section>
+<section id="part-3-stopwords-ratio" class="level4">
+<h4 class="anchored" data-anchor-id="part-3-stopwords-ratio">Part 3: Stopwords Ratio</h4>
+<div id="63f90007" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(books.groupby(<span class="st">"text"</span>)[<span class="st">"is_stopword"</span>].mean())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>text
+alice        0.511790
+mansfield    0.524287
+Name: is_stopword, dtype: float64</code></pre>
+</div>
+</div>
+<p>Almost equal! (I think I’ve noticed this tends to be a trend in large texts: almost half of the words are stopwords, and the other half are content words. Is this true for all long texts? I wonder what the TTR is of an English Dictionary…)</p>
+</section>
+<section id="part-4-plotting-shehe" class="level4">
+<h4 class="anchored" data-anchor-id="part-4-plotting-shehe">Part 4: Plotting She/He</h4>
+<div id="4027874c" class="cell" data-execution_count="26">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>avg_wordlength <span class="op">=</span> books.groupby(<span class="st">"text"</span>)[<span class="st">"length"</span>].mean()</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>avg_wordlength.plot(kind<span class="op">=</span><span class="st">"bar"</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"'Average Word Length"</span>)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Text"</span>)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>plt.xticks(rotation<span class="op">=</span><span class="dv">90</span>)      <span class="co"># attempt to fix the vertical labels</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Length"</span>)</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="day_25_files/figure-html/cell-27-output-1.png" width="590" height="503" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="part-5-response" class="level4">
+<h4 class="anchored" data-anchor-id="part-5-response">Part 5: Response</h4>
+<p>In 2–3 sentences: what do your numbers tell you about these two books? Write your answer as plain text (not in a chunk) at the bottom of day25.qmd.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

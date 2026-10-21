@@ -111,3 +111,16 @@ print(len(content) / len(words))    # what fraction of content words are the ent
 print("====Counting====")
 alice_df["word"].value_counts()     # shows the top words
 content["word"].value_counts().head(10)     # shows the top 10 content words
+
+
+print("====RECAP====")
+    # One column: df["word"]
+    # Filter: df[df["word"] == "queen"]
+        # String methods: df["word"].str.endswith("ly")
+        # Two conditions: (...) & (...), (...) | (...)
+        # A list: df["word"].isin(stopwords), flipped with ~
+
+# alice_df["word"].value_counts()    # displays the TOP WORDS
+# content = alice_df[~alice_df["word"].isin(stopwords)]     # displays the top CONTENT WORDS
+# content["word"].value_counts().head(10)
+
