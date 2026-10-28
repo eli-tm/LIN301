@@ -1,0 +1,15 @@
+---
+title: "HW 5 — Pandas-monium: Your Fandom in a Table"
+subtitle: "LIN 301: Computation for Linguists"
+author: "Eli Trainor"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-tools: true
+jupyter: python3
+fontsize: 12pt
+---
+
+#### Text
+The text for this assignment was aquired through Genius Lyrics. 
