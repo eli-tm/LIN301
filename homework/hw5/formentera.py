@@ -36,13 +36,31 @@ print(formentera_df.head())
 # adding columns
 # add name of song indexed by track number
 names = ["Doomscroller", "All Comes Crashing", "What Feels Like Eternity", "Formentera", "Enemies of the Ocean", "I Will Never Settle", "Oh Please", "Paths in the Sky"]
-for s, i in formentera_df.items():
-    if formentera_df[formentera_df["track"]] == 1:
-        formentera_df["song"] = names[0]
+track_num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-print(formentera_df.head())
+song_names = dict(zip(track_num, names)) # creating a dict of track: song
+
+# making a dict within a list:
+song_rows = []
+for track, name in song_names.items():
+    song_rows.append({
+        "track": track,
+        "song": name
+    })
+
+print(song_rows)
+
+# making a DataFrame with pandas:
+songs_df = pd.DataFrame(song_rows)
+
+print(songs_df.head())
+
+formentera2_df = pd.merge(formentera_df, songs_df, on="track", how="outer") # merging 2 dataframes from a shared column
+
+print(formentera2_df.head())
 
 # add another column of verse/chorus/bridge/intro/outro (modify splitting step to create another value?)
+
 
 # add 3 additional columns:
     # number of words per lyric
