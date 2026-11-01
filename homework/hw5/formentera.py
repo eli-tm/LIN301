@@ -32,10 +32,11 @@ for song in songs:
 # saving as data frame
 formentera_df = pd.DataFrame(rows)
 print(formentera_df.head())
+print(formentera_df.tail())
 
 # adding columns
 # add name of song indexed by track number
-names = ["Doomscroller", "All Comes Crashing", "What Feels Like Eternity", "Formentera", "Enemies of the Ocean", "I Will Never Settle", "Oh Please", "Paths in the Sky"]
+names = ["Doomscroller", "All Comes Crashing", "What Feels Like Eternity", "Formentera", "Enemies of the Ocean", "I Will Never Settle", "False Dichotomy", "Oh Please", "Paths in the Sky"]
 track_num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 song_names = dict(zip(track_num, names)) # creating a dict of track: song
@@ -57,14 +58,25 @@ print(songs_df.head())
 
 formentera2_df = pd.merge(formentera_df, songs_df, on="track", how="outer") # merging 2 dataframes from a shared column
 
+# number of words per lyric:
+# Source - https://stackoverflow.com/a/51325605
+# Posted by altabq, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-11-01, License - CC BY-SA 4.0
+
+formentera2_df['word_count'] = formentera2_df['lyric'].str.count(' ') + 1
+
+# if line is unique (to entire album)
+# Source - https://stackoverflow.com/a/66869743
+# Posted by jezrael, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-11-01, License - CC BY-SA 4.0
+
+formentera2_df['unique'] = ~formentera2_df['lyric'].duplicated(keep=False)
+
+# T/F if line contains a content word from its song title
+title_content = ["doomscroller", "crashing", "feels", "eternity", "formentera", "enemies", "ocean", "settle", "paths", "sky"] # used https://app.readable.com/text/stopwords/
+
+formentera2_df['contains_album_word'] = formentera2_df['lyric'].str.contains("doomscroller" or "crashing" or "feels" or "eternity" or "formentera" or "enemies" or "ocean" or "settle" or "false" or "dichotomy" or "paths" or "sky")
+
 print(formentera2_df.head())
-
-# add another column of verse/chorus/bridge/intro/outro (modify splitting step to create another value?)
-
-
-# add 3 additional columns:
-    # number of words per lyric
-    # if line is unique (to entire album) (values: unique, repeats)
-    # T/F if line contains a content word from its song title
-
-formentera_df.to_csv("hw5_trainor_eli.csv", index=False, encoding="utf-8-sig")
+print(formentera2_df.tail())
+formentera2_df.to_csv("hw5_trainor_eli.csv", index=False, encoding="utf-8-sig")
