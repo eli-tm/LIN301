@@ -83,3 +83,23 @@ def add_columns(df, stopwords):
     df["is_ly"] = df["word"].str.endswith("ly")
     df["is_stopword"] = df["word"].isin(stopwords)
     return df
+
+def book_to_spacy_df(filename, label, nlp):
+    text = load_text(filename)
+    chapters = re.split(r"(?im)^CHAPTER\s+(?:[IVXLCDM]+|\d+)\b", text)
+    chapters = chapters[1:]
+    rows = []
+    chapter_num = 0
+    for chapter in chapters:
+        chapter_num += 1
+        doc = nlp(chapter)
+        for token in doc:
+            if token.is_alpha:
+                rows.append({"word": token.text.lower(),
+                             "lemma": token.lemma_.lower(),
+                             "pos": token.pos_,
+                             "is_stop": token.is_stop,
+                             "chapter": chapter_num})
+    df = pd.DataFrame(rows)
+    df["text"] = label
+    return df
