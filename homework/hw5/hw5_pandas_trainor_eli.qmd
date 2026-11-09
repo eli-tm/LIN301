@@ -12,4 +12,98 @@ fontsize: 12pt
 ---
 
 #### Text
-The text for this assignment was aquired through Genius Lyrics. 
+The text for this assignment was aquired through Genius Lyrics. I chose the lyrics to all nine songs in the album *Formentera* by Metric. The following code is how I cleaned and split the data.
+``` {python}
+import re
+import pandas as pd
+
+with open("hw5_raw.txt", "r", encoding="utf-8") as f:
+    formentera_lines = f.readlines()    # opening the txt as a list of lines
+
+print(formentera_lines[0:10])
+
+formentera_text = "".join(formentera_lines)     # joining the list
+
+songs_intro = re.split(r"\[Intro\]", formentera_text)   # splitting the songs by intro
+songs_div = "".join(songs_intro)
+
+songs = re.split(r"\n\[verse 1\]", formentera_text.lower()) # splitting the songs by verse 1 (all songs have verse 1 but not all songs have intro)
+print(len(songs))
+```
+
+When seperating the songs, I decided to split them based off of the brackets. All songs have [Verse 1] but not all songs have [Intro]. So I first split the songs by [Intro] and then by [Verse 1]. This gave me the correct number of songs.
+
+#### Creating the Dataframe
+The following code is how I created a nested list and turned it into a dataframe.
+``` {python}
+rows = []
+song_num = 0
+
+for song in songs:
+    song_num += 1
+    lyrics = re.split(r"[\n]+", song)
+    lyrics = [w for w in lyrics if w != ""]
+    lyrics = [w for w in lyrics if not w.startswith("[")] # deleting all [Chorus], [Verse #], [Outro], etc.
+    for w in lyrics:
+        rows.append({"lyric": w, "track": song_num})
+
+# saving as data frame
+formentera_df = pd.DataFrame(rows)
+print(formentera_df.head())
+print(formentera_df.tail())
+```
+
+#### Adding Collumns 
+Next, I added more collumns based off the text. The first one I added was the song title that corresponded with the track number I preserved from splitting the songs. I created a second dataframe and merged it with my original dataframe.
+``` {python}
+# add name of song indexed by track number
+names = ["Doomscroller", "All Comes Crashing", "What Feels Like Eternity", "Formentera", "Enemies of the Ocean", "I Will Never Settle", "False Dichotomy", "Oh Please", "Paths in the Sky"]
+track_num = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+song_names = dict(zip(track_num, names)) # creating a dict of track: song
+
+
+song_rows = []
+for track, name in song_names.items():
+    song_rows.append({
+        "track": track,
+        "song": name
+    })
+songs_df = pd.DataFrame(song_rows)
+print(songs_df.head())
+
+formentera2_df = pd.merge(formentera_df, songs_df, on="track", how="outer") # merging 2 dataframes from a shared column
+```
+
+The next collumn I added was the number of words per lyric. I found an online source to help me with this code, which is commented below.
+``` {python}
+# Source - https://stackoverflow.com/a/51325605
+# Posted by altabq, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-11-01, License - CC BY-SA 4.0
+
+formentera2_df['word_count'] = formentera2_df['lyric'].str.count(' ') + 1
+```
+
+The next collumn I added was a T/F based off if the lyric was repeated or unique to the entire album. I once again found an online source to help me which is commented below.
+``` {python}
+# Source - https://stackoverflow.com/a/66869743
+# Posted by jezrael, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-11-01, License - CC BY-SA 4.0
+
+formentera2_df['is_unique'] = ~formentera2_df['lyric'].duplicated(keep=False)
+```
+
+The last collumn I added was a T/F based off if the idividual lyric had a content word of its song's title. I used a website (commented below) to find the content words. An online friend helped me write this code and taught me that using .map allows you to use functions on every element of a dataframe.
+``` {python}
+title_content = ["doomscroller", "crashing", "feels", "eternity", "formentera", "enemies", "ocean", "settle", "false", "dichotomy", "paths", "sky"] # used https://app.readable.com/text/stopwords/
+
+formentera2_df['contains_album_word'] = formentera2_df['lyric'].map(lambda x: any(keyword in x for keyword in title_content))
+```
+
+#### Saving as CSV
+Lastly, I saved the dataframe as a csv after verifying the output. The csv is available to view in the homework submission and in my homework folder.
+``` {python}
+print(formentera2_df.head())
+print(formentera2_df.tail())
+formentera2_df.to_csv("hw5_trainor_eli.csv", index=False, encoding="utf-8-sig")
+```

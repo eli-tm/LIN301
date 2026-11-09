@@ -17,7 +17,7 @@ print(songs[0])
 print(len(songs))
 print(songs)
 
-# creating 1 row per word with its song number, deleting [chorus], etc.
+# creating 1 row per lyric with its song number, deleting [chorus], etc.
 rows = []
 song_num = 0
 
@@ -70,12 +70,12 @@ formentera2_df['word_count'] = formentera2_df['lyric'].str.count(' ') + 1
 # Posted by jezrael, modified by community. See post 'Timeline' for change history
 # Retrieved 2026-11-01, License - CC BY-SA 4.0
 
-formentera2_df['unique'] = ~formentera2_df['lyric'].duplicated(keep=False)
+formentera2_df['is_unique'] = ~formentera2_df['lyric'].duplicated(keep=False)
 
 # T/F if line contains a content word from its song title
-title_content = ["doomscroller", "crashing", "feels", "eternity", "formentera", "enemies", "ocean", "settle", "paths", "sky"] # used https://app.readable.com/text/stopwords/
+title_content = ["doomscroller", "crashing", "feels", "eternity", "formentera", "enemies", "ocean", "settle", "false", "dichotomy", "paths", "sky"] # used https://app.readable.com/text/stopwords/
 
-formentera2_df['contains_album_word'] = formentera2_df['lyric'].str.contains("doomscroller" or "crashing" or "feels" or "eternity" or "formentera" or "enemies" or "ocean" or "settle" or "false" or "dichotomy" or "paths" or "sky")
+formentera2_df['contains_album_word'] = formentera2_df['lyric'].map(lambda x: any(keyword in x for keyword in title_content))
 
 print(formentera2_df.head())
 print(formentera2_df.tail())

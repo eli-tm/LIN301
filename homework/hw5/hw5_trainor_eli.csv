@@ -1,4 +1,4 @@
-﻿lyric,track,song,word_count,unique,contains_album_word
+﻿lyric,track,song,word_count,is_unique,contains_album_word
 lining up all the numbers under the names,1,Doomscroller,8,False,False
 lining up all the numbers under the names,1,Doomscroller,8,False,False
 notify the next of kin of the circumstances,1,Doomscroller,8,True,False
@@ -23,13 +23,6 @@ scum of the earth overpaid to rob anonymously from a distance,1,Doomscroller,11,
 scum of the earth overpaid to rob anonymously ruling classes,1,Doomscroller,10,True,False
 trickle piss from champagne glasses,1,Doomscroller,5,True,False
 history on repeat relapses,1,Doomscroller,4,True,False
-you might also like,1,Doomscroller,4,False,False
-the outsiders,1,Doomscroller,2,True,False
-neil cicierega,1,Doomscroller,2,True,False
-art of doubt,1,Doomscroller,3,True,False
-metric,1,Doomscroller,1,False,False
-oh please,1,Doomscroller,2,True,False
-metric,1,Doomscroller,1,False,False
 for a true doomscroller,1,Doomscroller,4,False,True
 dog whistle links to a torch song,1,Doomscroller,7,True,False
 torch song links to a statue burning,1,Doomscroller,7,True,False
@@ -129,8 +122,8 @@ for all i know,2,All Comes Crashing,4,False,False
 this might be my last night,2,All Comes Crashing,6,False,False
 "that's how it goes, there's no one",2,All Comes Crashing,7,False,False
 i would rather be lying beside,2,All Comes Crashing,6,False,False
-when it all comes crashing,2,All Comes Crashing,5,False,False
-when it all comes crashing,2,All Comes Crashing,5,False,False
+when it all comes crashing,2,All Comes Crashing,5,False,True
+when it all comes crashing,2,All Comes Crashing,5,False,True
 "starting over won't be easy, damage bе damned",2,All Comes Crashing,8,True,False
 "please, say you lovе me just as i am",2,All Comes Crashing,9,True,False
 starting over won't be easy misunderstand that pattern,2,All Comes Crashing,8,True,False
@@ -144,33 +137,33 @@ this might be my last night,2,All Comes Crashing,6,False,False
 "that's how it goes, there's no one",2,All Comes Crashing,7,False,False
 i would rather be lying beside,2,All Comes Crashing,6,False,False
 if all we knew,2,All Comes Crashing,4,False,False
-came crashing down tonight,2,All Comes Crashing,4,False,False
+came crashing down tonight,2,All Comes Crashing,4,False,True
 "i'd be with you, and there's no one",2,All Comes Crashing,8,False,False
 i would rather be dying beside,2,All Comes Crashing,6,False,False
-when it all comes crashing,2,All Comes Crashing,5,False,False
-all comes crashing down,2,All Comes Crashing,4,False,False
-when it all comes crashing,2,All Comes Crashing,5,False,False
-all comes crashing down,2,All Comes Crashing,4,False,False
-we'll come crashing down together,2,All Comes Crashing,5,False,False
+when it all comes crashing,2,All Comes Crashing,5,False,True
+all comes crashing down,2,All Comes Crashing,4,False,True
+when it all comes crashing,2,All Comes Crashing,5,False,True
+all comes crashing down,2,All Comes Crashing,4,False,True
+we'll come crashing down together,2,All Comes Crashing,5,False,True
 don't expect to live forever,2,All Comes Crashing,5,False,False
-we'll come crashing down together,2,All Comes Crashing,5,False,False
-if it all comes crashing down tonight,2,All Comes Crashing,7,True,False
-we'll come crashing down together,2,All Comes Crashing,5,False,False
+we'll come crashing down together,2,All Comes Crashing,5,False,True
+if it all comes crashing down tonight,2,All Comes Crashing,7,True,True
+we'll come crashing down together,2,All Comes Crashing,5,False,True
 don't expect to live forever,2,All Comes Crashing,5,False,False
-we'll come crashing down together,2,All Comes Crashing,5,False,False
-"when it all comes crashing, crashing, crashing, crashing",2,All Comes Crashing,8,True,False
+we'll come crashing down together,2,All Comes Crashing,5,False,True
+"when it all comes crashing, crashing, crashing, crashing",2,All Comes Crashing,8,True,True
 for all i know,2,All Comes Crashing,4,False,False
 this might be my last night,2,All Comes Crashing,6,False,False
 "that's how it goes, there's no one",2,All Comes Crashing,7,False,False
 i would rather be lying beside,2,All Comes Crashing,6,False,False
 if all we knew,2,All Comes Crashing,4,False,False
-came crashing down tonight,2,All Comes Crashing,4,False,False
+came crashing down tonight,2,All Comes Crashing,4,False,True
 "i'd be with you, and there's no one",2,All Comes Crashing,8,False,False
 i would rather be dying beside,2,All Comes Crashing,6,False,False
-when it all comes crashing,2,All Comes Crashing,5,False,False
-when it all comes crashing,2,All Comes Crashing,5,False,False
-when it all comes crashing,2,All Comes Crashing,5,False,False
-when it all comes crashing,2,All Comes Crashing,5,False,False
+when it all comes crashing,2,All Comes Crashing,5,False,True
+when it all comes crashing,2,All Comes Crashing,5,False,True
+when it all comes crashing,2,All Comes Crashing,5,False,True
+when it all comes crashing,2,All Comes Crashing,5,False,True
 "crying on the line, tower under vine",3,What Feels Like Eternity,7,True,False
 caution on repeat with nowhere to be,3,What Feels Like Eternity,7,True,False
 "surface of the peak, try a layer deep",3,What Feels Like Eternity,8,True,False
@@ -184,23 +177,16 @@ i'm crushing on repeat through another week,3,What Feels Like Eternity,7,False,F
 "toeing the line, a tension to find a gate free",3,What Feels Like Eternity,10,True,False
 ready to redeem all the drudgery,3,What Feels Like Eternity,6,False,False
 drive it away and my strength might save me,3,What Feels Like Eternity,9,True,False
-it feels like eternity,3,What Feels Like Eternity,4,False,False
-for what feels like eternity,3,What Feels Like Eternity,5,False,False
+it feels like eternity,3,What Feels Like Eternity,4,False,True
+for what feels like eternity,3,What Feels Like Eternity,5,False,True
 and what might overpower me,3,What Feels Like Eternity,5,False,False
 "head down, don't look up",3,What Feels Like Eternity,5,False,False
 i grind along,3,What Feels Like Eternity,3,False,False
-feels like eternity,3,What Feels Like Eternity,3,False,False
-for what feels like eternity,3,What Feels Like Eternity,5,False,False
+feels like eternity,3,What Feels Like Eternity,3,False,True
+for what feels like eternity,3,What Feels Like Eternity,5,False,True
 to race for what's in front of me,3,What Feels Like Eternity,8,False,False
 "head down, don't look up",3,What Feels Like Eternity,5,False,False
 i sing,3,What Feels Like Eternity,2,False,False
-you might also like,3,What Feels Like Eternity,4,False,False
-false dichotomy,3,What Feels Like Eternity,2,True,False
-metric,3,What Feels Like Eternity,1,False,False
-enemies of the ocean,3,What Feels Like Eternity,4,False,False
-metric,3,What Feels Like Eternity,1,False,False
-i will never settle,3,What Feels Like Eternity,4,False,False
-metric,3,What Feels Like Eternity,1,False,False
 "shelter from the storm, keep each other warm",3,What Feels Like Eternity,8,True,False
 who will cover me in my hour of need?,3,What Feels Like Eternity,9,True,False
 follow my pain for a long time dying,3,What Feels Like Eternity,8,False,False
@@ -208,13 +194,13 @@ i'm crushing on repeat through another week,3,What Feels Like Eternity,7,False,F
 "holding the light, attempting to fight the bad dream",3,What Feels Like Eternity,9,True,False
 ready to redeem all the drudgery,3,What Feels Like Eternity,6,False,False
 drive it away when the time lapse strikes me,3,What Feels Like Eternity,9,True,False
-it feels like eternity,3,What Feels Like Eternity,4,False,False
-for what feels like eternity,3,What Feels Like Eternity,5,False,False
+it feels like eternity,3,What Feels Like Eternity,4,False,True
+for what feels like eternity,3,What Feels Like Eternity,5,False,True
 and what might overpower me,3,What Feels Like Eternity,5,False,False
 "head down, don't look up",3,What Feels Like Eternity,5,False,False
 i grind along,3,What Feels Like Eternity,3,False,False
-feels like eternity,3,What Feels Like Eternity,3,False,False
-for what feels like eternity,3,What Feels Like Eternity,5,False,False
+feels like eternity,3,What Feels Like Eternity,3,False,True
+for what feels like eternity,3,What Feels Like Eternity,5,False,True
 to race for what's in front of me,3,What Feels Like Eternity,8,False,False
 "head down, don't look up",3,What Feels Like Eternity,5,False,False
 i sing,3,What Feels Like Eternity,2,False,False
@@ -222,18 +208,18 @@ i sing,3,What Feels Like Eternity,2,False,False
 "ooh, ooh-ooh",3,What Feels Like Eternity,2,True,False
 "ohh, ohh-ohh, ohh",3,What Feels Like Eternity,3,False,False
 "ahh, ahh-ahh",3,What Feels Like Eternity,2,True,False
-it feels like eternity,3,What Feels Like Eternity,4,False,False
-for what feels like eternity,3,What Feels Like Eternity,5,False,False
+it feels like eternity,3,What Feels Like Eternity,4,False,True
+for what feels like eternity,3,What Feels Like Eternity,5,False,True
 and what might overpower me,3,What Feels Like Eternity,5,False,False
 "head down, don't look up",3,What Feels Like Eternity,5,False,False
 i grind along,3,What Feels Like Eternity,3,False,False
-feels like eternity,3,What Feels Like Eternity,3,False,False
-for what feels like eternity,3,What Feels Like Eternity,5,False,False
+feels like eternity,3,What Feels Like Eternity,3,False,True
+for what feels like eternity,3,What Feels Like Eternity,5,False,True
 and what might overpower me,3,What Feels Like Eternity,5,False,False
 "head down, don't look up",3,What Feels Like Eternity,5,False,False
 i grind along,3,What Feels Like Eternity,3,False,False
-feels like eternity,3,What Feels Like Eternity,3,False,False
-for what feels like eternity,3,What Feels Like Eternity,5,False,False
+feels like eternity,3,What Feels Like Eternity,3,False,True
+for what feels like eternity,3,What Feels Like Eternity,5,False,True
 to race for what's in front of me,3,What Feels Like Eternity,8,False,False
 "head down, don't look up",3,What Feels Like Eternity,5,False,False
 i sing along,3,What Feels Like Eternity,3,True,False
@@ -262,19 +248,19 @@ colder than bars of gold,4,Formentera,5,True,False
 hoping the ropes will hold,4,Formentera,5,True,False
 why not just let go?,4,Formentera,5,True,False
 the stakes are not my own,4,Formentera,6,True,False
-on formentera beach,4,Formentera,3,True,False
+on formentera beach,4,Formentera,3,True,True
 why not walk away?,4,Formentera,4,True,False
 take a sober stroll,4,Formentera,4,True,False
 and free my childhood dream,4,Formentera,5,True,False
 before my hour is up,4,Formentera,5,True,False
 time stamp my release,4,Formentera,4,True,False
 today it's over,4,Formentera,3,True,False
-(formentera),4,Formentera,1,False,False
-(formentera),4,Formentera,1,False,False
-(formentera),4,Formentera,1,False,False
-(formentera),4,Formentera,1,False,False
-(formentera),4,Formentera,1,False,False
-(formentera),4,Formentera,1,False,False
+(formentera),4,Formentera,1,False,True
+(formentera),4,Formentera,1,False,True
+(formentera),4,Formentera,1,False,True
+(formentera),4,Formentera,1,False,True
+(formentera),4,Formentera,1,False,True
+(formentera),4,Formentera,1,False,True
 "out under bright silver skies, i accept it",5,Enemies of the Ocean,8,True,False
 "quick skip to the end, let you go",5,Enemies of the Ocean,8,True,False
 still single frames from our life,5,Enemies of the Ocean,6,True,False
@@ -283,7 +269,7 @@ like a distant slideshow,5,Enemies of the Ocean,4,True,False
 how were we to know,5,Enemies of the Ocean,5,False,False
 the river ever would bend?,5,Enemies of the Ocean,5,False,False
 split apart at the end,5,Enemies of the Ocean,5,False,False
-enemies of the ocean,5,Enemies of the Ocean,4,False,False
+enemies of the ocean,5,Enemies of the Ocean,4,False,True
 seats on the last flight,5,Enemies of the Ocean,5,False,False
 sunsets and moonlight,5,Enemies of the Ocean,3,False,False
 how were we to know?,5,Enemies of the Ocean,5,True,False
@@ -292,8 +278,8 @@ christmas and birthdays,5,Enemies of the Ocean,3,True,False
 how were we to know,5,Enemies of the Ocean,5,False,False
 thе river ever would bеnd?,5,Enemies of the Ocean,5,True,False
 split apart at the end,5,Enemies of the Ocean,5,False,False
-enemies of the ocean,5,Enemies of the Ocean,4,False,False
-enemies of the ocean,5,Enemies of the Ocean,4,False,False
+enemies of the ocean,5,Enemies of the Ocean,4,False,True
+enemies of the ocean,5,Enemies of the Ocean,4,False,True
 "in time, when the high will subside",5,Enemies of the Ocean,7,False,False
 send in the jaws of life,5,Enemies of the Ocean,6,False,False
 send in the jaws of life,5,Enemies of the Ocean,6,False,False
@@ -308,17 +294,17 @@ it confounds everyone,5,Enemies of the Ocean,3,True,False
 how were they to know,5,Enemies of the Ocean,5,True,False
 the river ever would bend?,5,Enemies of the Ocean,5,False,False
 split apart at the end,5,Enemies of the Ocean,5,False,False
-enemies of the ocean,5,Enemies of the Ocean,4,False,False
-enemies of the ocean,5,Enemies of the Ocean,4,False,False
-enemies of the ocean,5,Enemies of the Ocean,4,False,False
+enemies of the ocean,5,Enemies of the Ocean,4,False,True
+enemies of the ocean,5,Enemies of the Ocean,4,False,True
+enemies of the ocean,5,Enemies of the Ocean,4,False,True
 seats on the last flight,5,Enemies of the Ocean,5,False,False
 sunsets and moonlight,5,Enemies of the Ocean,3,False,False
 how were we to know,5,Enemies of the Ocean,5,False,False
 the river ever would bend?,5,Enemies of the Ocean,5,False,False
 split apart at the end,5,Enemies of the Ocean,5,False,False
-enemies of the ocean,5,Enemies of the Ocean,4,False,False
-enemies of the ocean,5,Enemies of the Ocean,4,False,False
-enemies of the ocean,5,Enemies of the Ocean,4,False,False
+enemies of the ocean,5,Enemies of the Ocean,4,False,True
+enemies of the ocean,5,Enemies of the Ocean,4,False,True
+enemies of the ocean,5,Enemies of the Ocean,4,False,True
 this is not the song,6,I Will Never Settle,5,True,False
 i wanted to write for you,6,I Will Never Settle,6,True,False
 this is not the way,6,I Will Never Settle,5,True,False
@@ -327,48 +313,48 @@ the truth is so unkind,6,I Will Never Settle,5,True,False
 i can't stop the way that it sounds in your mind,6,I Will Never Settle,11,True,False
 it's loud and it's distorted,6,I Will Never Settle,5,True,False
 the longer you avoid it,6,I Will Never Settle,5,True,False
-too much to settle,6,I Will Never Settle,4,False,False
+too much to settle,6,I Will Never Settle,4,False,True
 so i hide in my golden cage,6,I Will Never Settle,7,False,False
 silence is starving,6,I Will Never Settle,3,False,False
 humble pie on a paper plate,6,I Will Never Settle,6,False,False
 going in circles,6,I Will Never Settle,3,False,False
 and my pride is the piece i hold,6,I Will Never Settle,8,False,False
-i will never settle,6,I Will Never Settle,4,False,False
-cause to settle would crush our souls,6,I Will Never Settle,7,False,False
-too much to settle,6,I Will Never Settle,4,False,False
+i will never settle,6,I Will Never Settle,4,False,True
+cause to settle would crush our souls,6,I Will Never Settle,7,False,True
+too much to settle,6,I Will Never Settle,4,False,True
 silence is starving,6,I Will Never Settle,3,False,False
-i will never settle,6,I Will Never Settle,4,False,False
-i will never settle,6,I Will Never Settle,4,False,False
+i will never settle,6,I Will Never Settle,4,False,True
+i will never settle,6,I Will Never Settle,4,False,True
 going in circles,6,I Will Never Settle,3,False,False
 silence is starving,6,I Will Never Settle,3,False,False
-i will never settle,6,I Will Never Settle,4,False,False
-i will never settle,6,I Will Never Settle,4,False,False
+i will never settle,6,I Will Never Settle,4,False,True
+i will never settle,6,I Will Never Settle,4,False,True
 caught a glimpse of a normal life,6,I Will Never Settle,7,True,False
 terrified by the sight,6,I Will Never Settle,4,True,False
 we belong to another time,6,I Will Never Settle,5,True,False
 dropping vanishing names we knew,6,I Will Never Settle,5,True,False
 but if they don't care about it,6,I Will Never Settle,7,True,False
 do you still care about it?,6,I Will Never Settle,6,True,False
-too much to settle,6,I Will Never Settle,4,False,False
+too much to settle,6,I Will Never Settle,4,False,True
 silence is starving,6,I Will Never Settle,3,False,False
-i will never settle,6,I Will Never Settle,4,False,False
-i will never settle,6,I Will Never Settle,4,False,False
-(too much to settle),6,I Will Never Settle,4,True,False
+i will never settle,6,I Will Never Settle,4,False,True
+i will never settle,6,I Will Never Settle,4,False,True
+(too much to settle),6,I Will Never Settle,4,True,True
 so i hide in my golden cage,6,I Will Never Settle,7,False,False
 (silence is starving),6,I Will Never Settle,3,True,False
 humble pie on a paper plate,6,I Will Never Settle,6,False,False
 (going in circles),6,I Will Never Settle,3,True,False
 and my pride is the piece i hold,6,I Will Never Settle,8,False,False
-(i will never settle),6,I Will Never Settle,4,True,False
-cause to settle would crush our souls,6,I Will Never Settle,7,False,False
-to settle would crush our souls,6,I Will Never Settle,6,True,False
-we will never settle,6,I Will Never Settle,4,False,False
+(i will never settle),6,I Will Never Settle,4,True,True
+cause to settle would crush our souls,6,I Will Never Settle,7,False,True
+to settle would crush our souls,6,I Will Never Settle,6,True,True
+we will never settle,6,I Will Never Settle,4,False,True
 "it would crush our souls, oh, oh",6,I Will Never Settle,7,False,False
-we will never settle,6,I Will Never Settle,4,False,False
+we will never settle,6,I Will Never Settle,4,False,True
 "it would crush our souls, oh, oh",6,I Will Never Settle,7,False,False
-(we will never settle),6,I Will Never Settle,4,False,False
+(we will never settle),6,I Will Never Settle,4,False,True
 "(t would crush our souls, oh, oh)",6,I Will Never Settle,7,True,False
-(we will never settle),6,I Will Never Settle,4,False,False
+(we will never settle),6,I Will Never Settle,4,False,True
 "(it would crush our souls, oh, oh)",6,I Will Never Settle,7,True,False
 told we could be who we wanted,7,False Dichotomy,7,True,False
 "or get what we needed, hey yeah",7,False Dichotomy,7,True,False
@@ -379,13 +365,13 @@ this wasn't the point at all,7,False Dichotomy,6,False,False
 hostile to that superficial view,7,False Dichotomy,5,False,False
 show me something that can't be bought,7,False Dichotomy,7,False,False
 it's harder to do than i thought,7,False Dichotomy,7,False,False
-"false dichotomy, no choice to choose",7,False Dichotomy,6,False,False
+"false dichotomy, no choice to choose",7,False Dichotomy,6,False,True
 when you don't know if you should fall,7,False Dichotomy,8,False,False
 if there'd be a net at all,7,False Dichotomy,7,False,False
 pleasure gets so easily abused,7,False Dichotomy,5,False,False
 show me something that can't bе bought,7,False Dichotomy,7,True,False
 it's harder to do than i thought,7,False Dichotomy,7,False,False
-"false dichotomy, no choice to choosе",7,False Dichotomy,6,True,False
+"false dichotomy, no choice to choosе",7,False Dichotomy,6,True,True
 hate,7,False Dichotomy,1,False,False
 love,7,False Dichotomy,1,False,False
 hate,7,False Dichotomy,1,False,False
@@ -399,13 +385,13 @@ this wasn't the point at all,7,False Dichotomy,6,False,False
 hostile to that superficial view,7,False Dichotomy,5,False,False
 show me something that can't be bought,7,False Dichotomy,7,False,False
 it's harder to do than i thought,7,False Dichotomy,7,False,False
-"false dichotomy, no choice to choose",7,False Dichotomy,6,False,False
+"false dichotomy, no choice to choose",7,False Dichotomy,6,False,True
 when you don't know if you should fall,7,False Dichotomy,8,False,False
 if there'd be a net at all,7,False Dichotomy,7,False,False
 pleasure gets so easily abused,7,False Dichotomy,5,False,False
 show me something that can't be bought,7,False Dichotomy,7,False,False
 it's harder to do than i thought,7,False Dichotomy,7,False,False
-"false dichotomy, no choice to choose",7,False Dichotomy,6,False,False
+"false dichotomy, no choice to choose",7,False Dichotomy,6,False,True
 "hate, love (hate, love)",7,False Dichotomy,4,False,False
 "hate, love (hate, love)",7,False Dichotomy,4,False,False
 "hate, love",7,False Dichotomy,2,False,False
@@ -457,7 +443,7 @@ i thought this was just how everyone lived,8,Oh Please,8,False,False
 i thought this was just what everyone did,8,Oh Please,8,False,False
 i thought this was just how everyone lived,8,Oh Please,8,False,False
 let's go,8,Oh Please,2,True,False
-"paths in the sky, paths in the sky",8,Oh Please,8,False,False
+"paths in the sky, paths in the sky",8,Oh Please,8,False,True
 "that's you and me, and we'll always be",8,Oh Please,8,True,False
 "half hitting highs, half flying blind",8,Oh Please,6,True,False
 "till death divides, that's you and i",8,Oh Please,7,False,False
@@ -472,33 +458,33 @@ now seemed to be destroying me,9,Paths in the Sky,6,True,False
 "you shook your head, laughed when i said",9,Paths in the Sky,8,True,False
 """what a waste of an education""",9,Paths in the Sky,6,True,False
 time flying on a path,9,Paths in the Sky,5,False,False
-moving through thе sky,9,Paths in the Sky,4,True,False
+moving through thе sky,9,Paths in the Sky,4,True,True
 i don't ever want to land,9,Paths in the Sky,6,False,False
 flying on a path,9,Paths in the Sky,4,False,False
-moving through the sky,9,Paths in the Sky,4,False,False
+moving through the sky,9,Paths in the Sky,4,False,True
 thеre's no way to stop the time,9,Paths in the Sky,7,True,False
 flying on a path,9,Paths in the Sky,4,False,False
-moving through the sky,9,Paths in the Sky,4,False,False
+moving through the sky,9,Paths in the Sky,4,False,True
 play along and make it last,9,Paths in the Sky,6,False,False
 flying on a path,9,Paths in the Sky,4,False,False
-moving through the sky,9,Paths in the Sky,4,False,False
+moving through the sky,9,Paths in the Sky,4,False,True
 "so without you now, where would i be?",9,Paths in the Sky,8,True,False
 so many trials and fantasies,9,Paths in the Sky,5,True,False
 when i was broke you covered me,9,Paths in the Sky,7,True,False
 our actions speak in a heavenly,9,Paths in the Sky,6,True,False
 substitute for a conversation,9,Paths in the Sky,4,True,False
 time flying on a path,9,Paths in the Sky,5,False,False
-moving through the sky,9,Paths in the Sky,4,False,False
+moving through the sky,9,Paths in the Sky,4,False,True
 i don't ever want to land,9,Paths in the Sky,6,False,False
 flying on a path,9,Paths in the Sky,4,False,False
-moving through the sky,9,Paths in the Sky,4,False,False
+moving through the sky,9,Paths in the Sky,4,False,True
 there's no way to stop the time,9,Paths in the Sky,7,False,False
 flying on a path,9,Paths in the Sky,4,False,False
-moving through the sky,9,Paths in the Sky,4,False,False
+moving through the sky,9,Paths in the Sky,4,False,True
 but we're doing what we can,9,Paths in the Sky,6,True,False
 flying on a path,9,Paths in the Sky,4,False,False
 know we're flying blind,9,Paths in the Sky,4,False,False
-"paths in the sky, paths in the sky",9,Paths in the Sky,8,False,False
+"paths in the sky, paths in the sky",9,Paths in the Sky,8,False,True
 "till death divides, that's you and i",9,Paths in the Sky,7,False,False
 till the stars mutate,9,Paths in the Sky,4,True,False
 till a meteor hits your apartment,9,Paths in the Sky,6,True,False
@@ -507,13 +493,13 @@ wearing sequined gloves,9,Paths in the Sky,3,True,False
 "i saw the vase in the space, two faces",9,Paths in the Sky,9,True,False
 took me a lifetime of contemplation,9,Paths in the Sky,6,True,False
 time flying on a path,9,Paths in the Sky,5,False,False
-moving through the sky,9,Paths in the Sky,4,False,False
+moving through the sky,9,Paths in the Sky,4,False,True
 i wish i could stop the time,9,Paths in the Sky,7,True,False
 flying on a path,9,Paths in the Sky,4,False,False
-moving through the sky,9,Paths in the Sky,4,False,False
+moving through the sky,9,Paths in the Sky,4,False,True
 tried to sneak out through the back,9,Paths in the Sky,7,True,False
 flying on a path,9,Paths in the Sky,4,False,False
-moving through the sky,9,Paths in the Sky,4,False,False
+moving through the sky,9,Paths in the Sky,4,False,True
 play along and make it last,9,Paths in the Sky,6,False,False
 flying on a path,9,Paths in the Sky,4,False,False
 know we're flying blind,9,Paths in the Sky,4,False,False
