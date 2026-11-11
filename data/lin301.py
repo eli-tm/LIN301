@@ -1,6 +1,7 @@
 import os
 import re
 import pandas as pd
+from nltk.corpus import wordnet as wn
 
 HERE = os.path.dirname(__file__)   # the folder lin301.py lives in: data/
 
@@ -74,6 +75,31 @@ def add_columns(df):
     df["is_ly"] = df["word"].str.endswith("ly")
     return df
 
+def book_to_spacy_df(filename, label, nlp, chapter_word="CHAPTER"):
+    text = load_text(filename)
+    chapters = re.split(r"(?m)^" + chapter_word + r"\b.*$", text)
+    chapters = chapters[1:]
+    rows = []
+    chapter_num = 0
+    for chapter in chapters:
+        chapter_num += 1
+        doc = nlp(chapter)
+        sentence_num = 0
+        for sent in doc.sents:
+            sentence_num += 1
+            for token in sent:
+                if token.is_alpha:
+                    rows.append({"word": token.text.lower(),
+                                 "lemma": token.lemma_.lower(),
+                                 "pos": token.pos_,
+                                 "morph": str(token.morph),
+                                 "is_stop": token.is_stop,
+                                 "sentence": sentence_num,
+                                 "chapter": chapter_num})
+    df = pd.DataFrame(rows)
+    df["text"] = label
+    return df
+
 def book_to_svo_df(filename, label, nlp):
     text = load_text(filename)
     chapters = re.split(r"(?im)^CHAPTER\s+(?:[IVXLCDM]+|\d+)\b", text)
@@ -95,3 +121,10 @@ def book_to_svo_df(filename, label, nlp):
     df = pd.DataFrame(rows)
     df["text"] = label
     return df
+
+def is_a(word, category):
+    for synset in wn.synsets(word, pos=wn.NOUN):
+        for path in synset.hypernym_paths():
+            if category in path:
+                return True
+    return False
